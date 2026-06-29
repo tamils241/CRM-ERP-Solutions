@@ -1,0 +1,153 @@
+.dashboard-body {
+  margin: 0;
+  min-height: 100vh;
+  background: #eef3fb;
+  color: #0f172a;
+  font-family: "Inter", system-ui, sans-serif;
+  overflow-x: hidden;
+}
+.dashboard-shell {
+  display: grid;
+  grid-template-columns: 270px 1fr;
+  min-height: 100vh;
+}
+.sidebar {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  padding: 22px;
+  background: #0f172a;
+  color: #f8fafc;
+}
+.side-logo { display: flex; align-items: center; gap: 10px; font: 900 1.25rem "Poppins"; margin-bottom: 28px; }
+.side-logo span { width: 34px; height: 34px; display: grid; place-items: center; border-radius: 8px; background: linear-gradient(135deg,#f97316,#fbbf24); }
+.side-nav { display: grid; gap: 8px; }
+.side-nav a {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 12px 13px;
+  color: #cbd5e1;
+  border-radius: 8px;
+  font-weight: 800;
+}
+.side-nav a.active, .side-nav a:hover { color: #fff; background: rgba(255,255,255,0.1); }
+.dashboard-main { padding: 24px; min-width: 0; }
+.dashboard-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+.dashboard-top h1 { font-size: clamp(1.8rem, 4vw, 2.8rem); }
+.dash-actions { display: flex; align-items: center; gap: 10px; }
+.dash-search {
+  border: 1px solid #dbe4f0;
+  border-radius: 8px;
+  padding: 12px 14px;
+  min-width: 260px;
+}
+.dash-cards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 20px;
+}
+.dash-card, .dash-panel {
+  padding: 18px;
+  border: 1px solid #dbe4f0;
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: 0 14px 34px rgba(15,23,42,0.07);
+}
+.dash-card span { color: #64748b; font-weight: 800; }
+.dash-card strong { display: block; margin-top: 8px; font: 900 1.7rem "Poppins"; }
+.dash-layout {
+  display: grid;
+  grid-template-columns: 1.4fr 0.8fr;
+  gap: 18px;
+}
+.dash-panel canvas { max-height: 310px; }
+.table-wrap { width: 100%; }
+.data-table { width: 100%; border-collapse: collapse; }
+.data-table th, .data-table td { padding: 13px 10px; text-align: left; border-bottom: 1px solid #e2e8f0; }
+.data-table th { color: #64748b; font-size: 0.82rem; text-transform: uppercase; }
+.status { padding: 6px 9px; border-radius: 999px; font-weight: 900; font-size: 0.76rem; }
+.status.paid, .status.active { color: #047857; background: #d1fae5; }
+.status.pending { color: #b45309; background: #fef3c7; }
+.status.risk { color: #b91c1c; background: #fee2e2; }
+.dashboard-body.dark-dash { background: #07111f; color: #f8fafc; }
+.dashboard-body.dark-dash .dash-card,
+.dashboard-body.dark-dash .dash-panel {
+  background: #111c2f;
+  border-color: rgba(148,163,184,0.2);
+  color: #f8fafc;
+}
+.dashboard-body.dark-dash .dash-search { background: #0f172a; color: #f8fafc; border-color: rgba(148,163,184,0.25); }
+.dashboard-body .theme-toggle {
+  color: #0f172a;
+  background: #ffffff;
+  border-color: #dbe4f0;
+}
+.dashboard-body.dark-dash .theme-toggle {
+  color: #ffffff;
+  background: #0f172a;
+  border-color: rgba(148,163,184,0.32);
+}
+.dashboard-body.dark-dash .btn-light:not(.theme-toggle) {
+  color: #ffffff;
+  background: linear-gradient(135deg, rgba(249,115,22,0.92), rgba(234,88,12,0.92));
+  border-color: rgba(251,191,36,0.34);
+}
+.sidebar-toggle { display: none; }
+@media (max-width: 980px) {
+  .dashboard-shell { grid-template-columns: 1fr; }
+  .sidebar {
+    position: fixed;
+    inset: 0 auto 0 0;
+    width: 270px;
+    transform: translateX(-100%);
+    transition: transform 0.25s ease;
+    z-index: 20;
+  }
+  .sidebar.open { transform: translateX(0); }
+  .sidebar-toggle { display: inline-flex; }
+  .dash-cards { grid-template-columns: repeat(2, 1fr); }
+  .dash-layout { grid-template-columns: 1fr; }
+  .dash-panel canvas {
+    max-height: 280px;
+  }
+}
+@media (max-width: 640px) {
+  .dashboard-main { padding: 16px; }
+  .dashboard-top, .dash-actions { align-items: stretch; flex-direction: column; }
+  .dash-search { min-width: 0; width: 100%; }
+  .dash-cards { grid-template-columns: 1fr; }
+  .dash-card,
+  .dash-panel {
+    padding: 15px;
+  }
+  .data-table { min-width: 560px; }
+  .table-wrap { overflow-x: auto; }
+  .sidebar {
+    width: min(270px, 86vw);
+  }
+}
+@media (max-width: 420px) {
+  .dashboard-main { padding: 12px; }
+  .dashboard-top h1 { font-size: 1.65rem; }
+  .btn {
+    width: 100%;
+  }
+  .dash-actions {
+    width: 100%;
+  }
+  .dash-panel canvas {
+    max-height: 240px;
+  }
+  .data-table {
+    min-width: 520px;
+    font-size: 0.88rem;
+  }
+}

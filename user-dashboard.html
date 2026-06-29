@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>User Dashboard | Stackly</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=Poppins:wght@700;800;900&display=swap" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"><link rel="stylesheet" href="css/style.css"><link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body class="dashboard-body">
+  <div class="dashboard-shell">
+    <aside class="sidebar"><a class="side-logo" href="index.html"><span><i class="fa-solid fa-layer-group"></i></span>Stackly</a><nav class="side-nav"><a class="active" href="#"><i class="fa-solid fa-chart-line"></i>Dashboard</a><a href="#"><i class="fa-solid fa-users"></i>Customers</a><a href="#"><i class="fa-solid fa-file-invoice"></i>Invoices</a><a href="#"><i class="fa-solid fa-diagram-project"></i>Projects</a><a href="#"><i class="fa-solid fa-chart-pie"></i>Reports</a><a href="#"><i class="fa-solid fa-bell"></i>Notifications</a><a href="#"><i class="fa-solid fa-calendar-days"></i>Calendar</a><a href="#"><i class="fa-solid fa-gear"></i>Settings</a><a href="#"><i class="fa-solid fa-user"></i>Profile</a></nav></aside>
+    <main class="dashboard-main">
+      <div class="dashboard-top"><div><button class="btn btn-light sidebar-toggle"><i class="fa-solid fa-bars"></i></button><h1>User Dashboard</h1><p>Customer, invoice, project, report, and task activity for today.</p></div><div class="dash-actions"><input class="dash-search" placeholder="Search customers, invoices, projects"><button class="btn btn-light theme-toggle"><i class="fa-solid fa-moon"></i></button><button class="btn btn-primary"><i class="fa-solid fa-plus"></i>New</button></div></div>
+      <section class="dash-cards"><article class="dash-card"><span>Customers</span><strong>1,284</strong></article><article class="dash-card"><span>Invoices</span><strong>$86K</strong></article><article class="dash-card"><span>Projects</span><strong>42</strong></article><article class="dash-card"><span>Tasks Done</span><strong>91%</strong></article></section>
+      <section class="dash-layout"><div class="dash-panel"><h3>Revenue Trend</h3><canvas id="revenueChart"></canvas></div><div class="dash-panel"><h3>Module Usage</h3><canvas id="moduleChart"></canvas></div></section>
+      <section class="dash-panel" style="margin-top:18px"><h3>Recent Work</h3><div class="table-wrap"><table class="data-table"><thead><tr><th>Customer</th><th>Project</th><th>Invoice</th><th>Status</th></tr></thead><tbody><tr><td>Nexora</td><td>CRM onboarding</td><td>INV-2048</td><td><span class="status paid">Paid</span></td></tr><tr><td>Atlas Works</td><td>ERP inventory</td><td>INV-2049</td><td><span class="status pending">Pending</span></td></tr><tr><td>LumaWorks</td><td>Analytics setup</td><td>INV-2050</td><td><span class="status active">Active</span></td></tr></tbody></table></div></section>
+    </main>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script><script src="js/main.js"></script><script src="js/dashboard.js"></script>
+</body>
+</html>

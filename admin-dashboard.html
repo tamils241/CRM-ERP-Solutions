@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Admin Dashboard | Stackly</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=Poppins:wght@700;800;900&display=swap" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"><link rel="stylesheet" href="css/style.css"><link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body class="dashboard-body dark-dash">
+  <div class="dashboard-shell">
+    <aside class="sidebar"><a class="side-logo" href="index.html"><span><i class="fa-solid fa-layer-group"></i></span>Stackly Admin</a><nav class="side-nav"><a class="active" href="#"><i class="fa-solid fa-gauge-high"></i>Dashboard</a><a href="#"><i class="fa-solid fa-user-shield"></i>Users</a><a href="#"><i class="fa-solid fa-building"></i>Companies</a><a href="#"><i class="fa-solid fa-handshake"></i>CRM</a><a href="#"><i class="fa-solid fa-cubes"></i>ERP</a><a href="#"><i class="fa-solid fa-diagram-project"></i>Projects</a><a href="#"><i class="fa-solid fa-sack-dollar"></i>Revenue</a><a href="#"><i class="fa-solid fa-file-invoice-dollar"></i>Invoices</a><a href="#"><i class="fa-solid fa-chart-simple"></i>Analytics</a><a href="#"><i class="fa-solid fa-key"></i>Roles</a><a href="#"><i class="fa-solid fa-lock"></i>Permissions</a><a href="#"><i class="fa-solid fa-gear"></i>Settings</a></nav></aside>
+    <main class="dashboard-main">
+      <div class="dashboard-top"><div><button class="btn btn-light sidebar-toggle"><i class="fa-solid fa-bars"></i></button><h1>Admin Dashboard</h1><p>Platform usage, revenue, CRM, ERP, users, roles, exports, and governance controls.</p></div><div class="dash-actions"><input class="dash-search" placeholder="Search users, companies, invoices"><button class="btn btn-light theme-toggle"><i class="fa-solid fa-sun"></i></button><button class="btn btn-light"><i class="fa-solid fa-filter"></i>Filter</button><button class="btn btn-primary"><i class="fa-solid fa-file-export"></i>Export</button></div></div>
+      <section class="dash-cards"><article class="dash-card"><span>Users</span><strong>8,420</strong></article><article class="dash-card"><span>Companies</span><strong>612</strong></article><article class="dash-card"><span>Revenue</span><strong>$1.8M</strong></article><article class="dash-card"><span>Open Invoices</span><strong>342</strong></article></section>
+      <section class="dash-layout"><div class="dash-panel"><h3>Revenue Analytics</h3><canvas id="revenueChart"></canvas></div><div class="dash-panel"><h3>Module Split</h3><canvas id="moduleChart"></canvas></div></section>
+      <section class="dash-panel" style="margin-top:18px"><h3>Companies</h3><div class="table-wrap"><table class="data-table"><thead><tr><th>Company</th><th>Plan</th><th>Modules</th><th>Risk</th><th>Status</th></tr></thead><tbody><tr><td>Nexora Systems</td><td>Enterprise</td><td>CRM, ERP, BI</td><td>Low</td><td><span class="status active">Active</span></td></tr><tr><td>Atlas Manufacturing</td><td>Professional</td><td>ERP, Projects</td><td>Medium</td><td><span class="status pending">Review</span></td></tr><tr><td>Urban Retail Group</td><td>Enterprise</td><td>CRM, Billing</td><td>High</td><td><span class="status risk">Risk</span></td></tr></tbody></table></div></section>
+    </main>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script><script src="js/main.js"></script><script src="js/dashboard.js"></script>
+</body>
+</html>

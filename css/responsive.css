@@ -1,0 +1,186 @@
+@media (max-width: 1080px) {
+  .nav-links {
+    position: fixed;
+    top: var(--header-height);
+    left: 20px;
+    right: 20px;
+    display: none;
+    flex-direction: column;
+    align-items: stretch;
+    padding: 18px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.98);
+    box-shadow: var(--shadow);
+    backdrop-filter: blur(22px);
+  }
+  body.dark-mode .nav-links {
+    background: rgba(7, 17, 31, 0.98);
+  }
+  .nav-links.open { display: flex; }
+  .mobile-nav-close {
+    display: grid;
+    place-items: center;
+    align-self: flex-end;
+    width: 40px;
+    height: 40px;
+    margin: -4px -4px 4px 0;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: rgba(249, 115, 22, 0.1);
+    color: var(--primary);
+    cursor: pointer;
+    font-size: 1.15rem;
+    transition: transform 0.2s ease, background 0.2s ease;
+  }
+  .mobile-nav-close:hover {
+    transform: rotate(90deg);
+    background: rgba(249, 115, 22, 0.16);
+  }
+  .mobile-nav-actions {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    padding-top: 14px;
+    margin-top: 6px;
+    border-top: 1px solid var(--line);
+  }
+  .mobile-nav-actions .btn {
+    min-height: 42px;
+    padding: 0 12px;
+    font-size: 0.86rem;
+  }
+  .mobile-toggle { display: grid; place-items: center; }
+  .nav-actions .btn-ghost { display: none; }
+  .hero-grid, .split, .auth-page { grid-template-columns: 1fr; }
+  .parallax-hero .hero-copy,
+  .parallax-hero .dashboard-visual {
+    transform: none !important;
+  }
+  .mockup-grid > .metric-card {
+    animation-duration: 13s;
+  }
+  .dashboard-visual { min-height: 470px; }
+  .trust-grid { grid-template-columns: repeat(3, 1fr); }
+  .grid-4 { grid-template-columns: repeat(2, 1fr); }
+  .grid-3 { grid-template-columns: repeat(2, 1fr); }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 720px) {
+  .container { width: min(100% - 28px, 1180px); }
+  .site-header { background: rgba(255,255,255,0.9); backdrop-filter: blur(16px); }
+  body.dark-mode .site-header { background: rgba(7,17,31,0.9); }
+  .nav-actions .btn-primary { display: none; }
+  .hero { padding-top: 105px; }
+  .hero-actions, .social-row, .newsletter, .footer-bottom { flex-direction: column; }
+  .dashboard-visual { min-height: 560px; }
+  .mockup {
+    inset: 88px 0 auto 0;
+    transform: none;
+  }
+  .floating-card { font-size: 0.82rem; }
+  .float-2 { right: 0; top: 54px; }
+  .trust-grid, .grid-3, .grid-4, .form-grid, .dash-grid, .footer-grid {
+    grid-template-columns: 1fr;
+  }
+  section { padding: 64px 0; }
+  .auth-art { padding: 90px 24px 44px; }
+  .auth-panel { padding: 36px 20px 60px; }
+}
+
+@media (max-width: 480px) {
+  .container { width: min(100% - 24px, 1180px); }
+  .nav-wrap { gap: 10px; }
+  .logo { font-size: 1.12rem; gap: 8px; }
+  .logo-mark {
+    width: 30px;
+    height: 30px;
+  }
+  .nav-actions {
+    gap: 8px;
+  }
+  .nav-actions .btn-light {
+    display: none;
+  }
+  .mobile-nav-actions {
+    grid-template-columns: 1fr;
+  }
+  .mobile-nav-actions .btn {
+    width: 100%;
+  }
+  .mobile-toggle {
+    width: 38px;
+    height: 38px;
+  }
+  h1 { font-size: clamp(2.15rem, 12vw, 3.2rem); }
+  h2 { font-size: clamp(1.75rem, 9vw, 2.35rem); }
+  .hero {
+    min-height: auto;
+    padding: 104px 0 54px;
+  }
+  .hero-copy p {
+    font-size: 1rem;
+  }
+  .btn {
+    width: 100%;
+    min-height: 44px;
+    padding: 0 14px;
+  }
+  .eyebrow {
+    max-width: 100%;
+    white-space: normal;
+  }
+  .feature-card,
+  .content-card,
+  .testimonial-card,
+  .price-card,
+  .form-card {
+    padding: 20px;
+  }
+  .dashboard-visual {
+    min-height: 520px;
+  }
+  .mockup {
+    padding: 14px;
+  }
+  .mockup-grid {
+    grid-template-columns: 1fr;
+  }
+  .wide {
+    grid-column: auto;
+  }
+  .chart-bars {
+    height: 120px;
+  }
+  .floating-card {
+    max-width: calc(100vw - 32px);
+    padding: 11px 12px;
+  }
+  .trust-strip {
+    margin-top: 0;
+  }
+  .trust-grid {
+    padding: 12px;
+  }
+  .price {
+    font-size: 2.25rem;
+  }
+  .pricing-toggle {
+    width: 100%;
+  }
+  .pricing-toggle button {
+    flex: 1;
+  }
+  .faq-question {
+    gap: 14px;
+  }
+  .map-placeholder {
+    min-height: 240px;
+    text-align: center;
+    padding: 18px;
+  }
+  .footer-bottom {
+    align-items: flex-start;
+  }
+}
