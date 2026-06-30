@@ -38,7 +38,8 @@
 .data-table th { text-align: left; padding: 12px 14px; font-weight: 600; color: #64748b; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 2px solid #e2e8f0; }
 .data-table td { padding: 12px 14px; border-bottom: 1px solid #f1f5f9; }
 .data-table tr:hover td { background: #f8fafc; }
-.table-wrap { overflow-x: auto; }
+.table-wrap,
+.data-table-wrap { overflow-x: auto; }
 .status { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 11px; font-weight: 600; }
 .status.active { background: #d1fae5; color: #065f46; }
 .status.pending { background: #fef3c7; color: #92400e; }
@@ -83,14 +84,79 @@
   .dashboard-main { padding-left: 0; }
 }
 @media (max-width: 640px) {
-  .dashboard-main { padding: 20px 16px; }
+  .dashboard-body {
+    overflow-x: hidden;
+  }
+  .sidebar {
+    width: min(250px, 86vw);
+    left: -86vw;
+  }
+  .dashboard-main {
+    width: 100%;
+    padding: 20px 16px;
+    overflow-x: hidden;
+  }
   .dashboard-shell { flex-direction: column; }
-  .dashboard-top { flex-direction: column; }
-  .dash-actions { width: 100%; }
-  .dash-search { min-width: 0; flex: 1; }
+  .dashboard-top {
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 16px;
+  }
+  .dashboard-top > div {
+    min-width: 0;
+    width: 100%;
+  }
+  .dash-actions {
+    width: 100%;
+    align-items: stretch;
+  }
+  .dash-actions .btn,
+  .dash-search {
+    width: 100%;
+  }
+  .dash-search {
+    min-width: 0;
+    flex: 1 1 100%;
+  }
   .dash-cards { grid-template-columns: 1fr; }
+  .dash-panel,
+  .dash-card {
+    min-width: 0;
+    padding: 18px;
+  }
+  .dash-card strong,
+  .pipeline-step span {
+    overflow-wrap: anywhere;
+  }
+  .pipeline-list {
+    flex-direction: column;
+  }
+  .pipeline-step {
+    min-width: 0;
+    width: 100%;
+  }
+  .table-wrap,
+  .data-table-wrap {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .data-table {
+    min-width: 620px;
+  }
 }
 @media (max-width: 420px) {
-  .dash-actions .btn-light:nth-child(3) { display: none; }
   .dash-cards { gap: 12px; }
+  .dashboard-top h1 {
+    font-size: 21px;
+    line-height: 1.2;
+  }
+  .dash-actions {
+    gap: 8px;
+  }
+  .dash-panel,
+  .dash-card {
+    padding: 16px;
+  }
 }

@@ -34,6 +34,28 @@
 }
 
 @media (max-width: 768px) {
+  body {
+    overflow-x: hidden;
+  }
+  .container,
+  .grid,
+  .split,
+  .hero-grid,
+  .footer-grid,
+  .form-grid,
+  .auth-page,
+  .dash-grid {
+    min-width: 0;
+  }
+  h1,
+  h2,
+  h3,
+  p,
+  a,
+  span,
+  strong {
+    overflow-wrap: anywhere;
+  }
   h1 { font-size: 2rem; }
   h2 { font-size: 1.8rem; }
   section { padding: 48px 0; }
@@ -75,10 +97,99 @@
     animation-duration: 13s;
   }
   .hero-grid { gap: 20px; text-align: center; }
+  .section-head,
+  .section-head p {
+    max-width: 100%;
+  }
+  .section-head {
+    margin-bottom: 28px;
+  }
   .hero-copy p { font-size: 0.95rem; margin: 18px auto 26px; }
   .hero-actions { justify-content: center; }
-  .dashboard-visual { min-height: 420px; }
-  .mockup { transform: none; }
+  .hero-actions .btn {
+    flex: 1 1 210px;
+    max-width: 320px;
+  }
+  .dashboard-visual {
+    min-height: 420px;
+    width: 100%;
+    overflow: visible;
+  }
+  .mockup {
+    width: 100%;
+    transform: none;
+  }
+  .form-card,
+  .dashboard-preview,
+  .map-placeholder,
+  .map-placeholder iframe {
+    max-width: 100%;
+  }
+  .content-card,
+  .feature-card,
+  .testimonial-card,
+  .price-card,
+  .faq-item {
+    width: 100%;
+    min-width: 0;
+  }
+  .content-card,
+  .testimonial-card,
+  .price-card {
+    text-align: center;
+  }
+  .feature-card {
+    min-height: 220px;
+  }
+  .icon-box {
+    margin-inline: auto;
+  }
+  .section-section .btn,
+  .cta .btn {
+    max-width: 320px;
+  }
+  .form-group input,
+  .form-group textarea,
+  .form-group select,
+  .newsletter input {
+    min-width: 0;
+  }
+  .auth-page {
+    min-height: auto;
+  }
+  .auth-panel {
+    align-content: start;
+  }
+  .auth-panel .form-card {
+    width: min(100%, 520px);
+    margin: 0 auto;
+  }
+  .auth-panel .form-grid label,
+  .form-card > label {
+    align-items: flex-start;
+    line-height: 1.45;
+  }
+  .social-row .btn {
+    width: 100%;
+  }
+  .pricing-toggle {
+    max-width: 100%;
+  }
+  .pricing-toggle button {
+    min-width: 0;
+    white-space: normal;
+  }
+  .price-card.premium-card {
+    transform: none !important;
+  }
+  .check-list,
+  .plain-list {
+    padding-left: 0;
+  }
+  .floating-card {
+    max-width: min(280px, calc(100vw - 32px));
+    white-space: normal;
+  }
   .auth-art { display: none; }
   .auth-panel { padding: 40px 20px; }
 
@@ -224,15 +335,34 @@
   body.dark-mode .site-header { background: rgba(7,17,31,0.9); }
 
   .hero { padding-top: 105px; }
-  .hero-actions, .social-row, .newsletter, .footer-bottom { flex-direction: column; }
+  .hero-actions, .social-row, .newsletter, .footer-bottom {
+    flex-direction: column;
+    align-items: stretch;
+  }
 
-  .dashboard-visual { min-height: 560px; }
+  .dashboard-visual {
+    display: grid;
+    gap: 10px;
+    min-height: auto;
+  }
   .mockup {
-    inset: 88px 0 auto 0;
+    position: relative;
+    inset: auto;
     transform: none;
   }
-  .floating-card { font-size: 0.82rem; }
-  .float-2 { right: 0; top: 54px; }
+  .floating-card {
+    position: relative;
+    inset: auto;
+    justify-content: center;
+    margin: 0 auto;
+    font-size: 0.82rem;
+    animation: none;
+  }
+  .float-1,
+  .float-2,
+  .float-3 {
+    inset: auto;
+  }
 
   .trust-grid, .grid-3, .grid-4, .form-grid, .dash-grid, .footer-grid {
     grid-template-columns: 1fr;
@@ -288,6 +418,8 @@
     width: 100%;
     min-height: 44px;
     padding: 0 14px;
+    white-space: normal;
+    text-align: center;
   }
 
   /* Layouts & Cards */
@@ -302,11 +434,29 @@
   .form-card {
     padding: 20px;
   }
+  .feature-card {
+    min-height: 200px;
+  }
+  .section-section .btn,
+  .cta .btn,
+  .hero-actions .btn,
+  .auth-panel .btn {
+    max-width: 100%;
+  }
+  .auth-panel .form-grid label,
+  .form-card > label {
+    display: inline-flex;
+    gap: 8px;
+    text-align: left;
+  }
   .dashboard-visual {
-    min-height: 520px;
+    min-height: auto;
   }
   .mockup {
+    position: relative;
+    inset: auto;
     padding: 14px;
+    min-height: auto;
   }
   .mockup-grid {
     grid-template-columns: 1fr;
@@ -318,8 +468,13 @@
     height: 120px;
   }
   .floating-card {
+    position: relative;
+    inset: auto;
+    justify-content: center;
     max-width: calc(100vw - 32px);
+    margin: 10px auto 0;
     padding: 11px 12px;
+    animation: none;
   }
   .trust-strip {
     margin-top: 0;
