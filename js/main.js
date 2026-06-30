@@ -109,8 +109,28 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   $$(".validate-form").forEach((form) => {
+    const password = $('[name="password"]', form);
+    const confirm = $('[name="confirmPassword"]', form);
+    const validatePasswordMatch = () => {
+      if (!password || !confirm) return true;
+      const matches = password.value === confirm.value;
+      confirm.setCustomValidity(matches ? "" : "Passwords do not match.");
+      return matches;
+    };
+
+    if (password && confirm) {
+      password.addEventListener("input", validatePasswordMatch);
+      confirm.addEventListener("input", validatePasswordMatch);
+    }
+
     form.addEventListener("submit", (event) => {
       event.preventDefault();
+      validatePasswordMatch();
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        showToast("Please fix the highlighted fields.", "error");
+        return;
+      }
       const invalid = $$("[required]", form).find((field) => {
         const checkboxInvalid = field.type === "checkbox" && !field.checked;
         return checkboxInvalid || !String(field.value || "").trim();
@@ -126,9 +146,7 @@ document.addEventListener("DOMContentLoaded", () => {
         showToast("Full name: only letters and spaces, max 16 characters.", "error");
         return;
       }
-      const password = $('[name="password"]', form);
-      const confirm = $('[name="confirmPassword"]', form);
-      if (password && confirm && password.value !== confirm.value) {
+      if (!validatePasswordMatch()) {
         confirm.focus();
         showToast("Passwords do not match.", "error");
         return;
