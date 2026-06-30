@@ -1,3 +1,9 @@
+// Ensure pages hide the loader once resources finish loading (fallback when no explicit loader markup present)
+(function(){
+  if (document.readyState === 'complete') document.body.classList.add('loaded');
+  else window.addEventListener('load', () => document.body.classList.add('loaded'));
+})();
+
 const $ = (selector, scope = document) => scope.querySelector(selector);
 const $$ = (selector, scope = document) => [...scope.querySelectorAll(selector)];
 const safeStorage = {

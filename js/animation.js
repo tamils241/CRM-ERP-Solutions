@@ -78,4 +78,23 @@ document.addEventListener("DOMContentLoaded", () => {
     window.addEventListener("scroll", scrollHero, { passive: true });
     scrollHero();
   }
+
+  const testimonialParallax = document.querySelector(".testimonial-parallax-section");
+  if (testimonialParallax && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    let testimonialFrame = 0;
+    const moveTestimonialBg = () => {
+      if (testimonialFrame) return;
+      testimonialFrame = requestAnimationFrame(() => {
+        const rect = testimonialParallax.getBoundingClientRect();
+        const viewportCenter = window.innerHeight / 2;
+        const sectionCenter = rect.top + rect.height / 2;
+        const offset = Math.max(-70, Math.min(70, (viewportCenter - sectionCenter) * 0.12));
+        testimonialParallax.style.setProperty("--testimonial-bg-y", `${offset}px`);
+        testimonialFrame = 0;
+      });
+    };
+
+    window.addEventListener("scroll", moveTestimonialBg, { passive: true });
+    moveTestimonialBg();
+  }
 });

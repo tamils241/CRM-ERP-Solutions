@@ -64,7 +64,22 @@
   .trust-grid { grid-template-columns: repeat(3, 1fr); }
   .grid-4 { grid-template-columns: repeat(2, 1fr); }
   .grid-3 { grid-template-columns: repeat(2, 1fr); }
-  .footer-grid { grid-template-columns: 1fr 1fr; }
+  .footer-grid { grid-template-columns: repeat(2, 1fr); }
+  .footer-grid > div {
+    padding: 0 20px 24px;
+  }
+  .footer-grid > div:nth-child(odd) {
+    padding-left: 0;
+  }
+  .footer-grid > div:nth-child(even) {
+    padding-right: 0;
+  }
+  .footer-grid > div + div::before {
+    bottom: 24px;
+  }
+  .footer-grid > div:nth-child(odd)::before {
+    display: none;
+  }
 }
 
 @media (max-width: 720px) {
@@ -84,7 +99,14 @@
   .trust-grid, .grid-3, .grid-4, .form-grid, .dash-grid, .footer-grid {
     grid-template-columns: 1fr;
   }
-  section { padding: 64px 0; }
+  .footer-grid > div {
+    padding: 0 0 24px;
+  }
+  .footer-grid > div + div::before {
+    display: none;
+  }
+  section { padding: 52px 0; }
+  section + section { padding-top: 34px; }
   .auth-art { padding: 90px 24px 44px; }
   .auth-panel { padding: 36px 20px 60px; }
 }

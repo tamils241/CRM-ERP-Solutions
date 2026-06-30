@@ -14,6 +14,9 @@
   <link rel="stylesheet" href="css/responsive.css">
 </head>
 <body>
+  <div id="page-loader" aria-hidden="true">
+    <div class="loader-inner" role="status" aria-label="Loading"></div>
+  </div>
   <header class="site-header">
     <div class="container nav-wrap">
       <a class="logo" href="index.html"><span class="logo-mark"><i class="fa-solid fa-layer-group"></i></span>Stackly</a>
@@ -80,14 +83,16 @@
       </div>
     </div>
 
-    <section>
+    </section>
+
+  <script src="js/loader.js" defer></script>
       <div class="container">
         <div class="section-head reveal text-reveal">
           <span class="eyebrow">CRM features</span>
           <h2>Sales, support, <span class="gradient-text">automation</span>, and customer intelligence</h2>
           <p>Give every team a complete view of customers, deals, campaigns, conversations, tasks, and performance.</p>
         </div>
-        <div class="grid grid-3">
+        <div class="grid grid-3 crm-feature-grid">
           <article class="feature-card reveal"><div class="icon-box"><i class="fa-solid fa-users"></i></div><h3>Lead Management</h3><p>Capture, score, assign, and nurture every opportunity with smart routing and reminders.</p></article>
           <article class="feature-card reveal"><div class="icon-box"><i class="fa-solid fa-filter-circle-dollar"></i></div><h3>Sales Pipeline</h3><p>Track stages, forecasts, win probability, and revenue performance in real time.</p></article>
           <article class="feature-card reveal"><div class="icon-box"><i class="fa-solid fa-headset"></i></div><h3>Customer Support</h3><p>Manage tickets, SLAs, knowledge base articles, and service history from one workspace.</p></article>
@@ -125,7 +130,7 @@
           <span class="eyebrow">Services</span>
           <h2>Implementation, migration, intelligence, and long-term support</h2>
         </div>
-        <div class="grid grid-4">
+        <div class="grid grid-4 service-feature-grid" data-pan-duration="16s" data-pan-hover="continue">
           <article class="feature-card reveal"><div class="icon-box"><i class="fa-solid fa-code"></i></div><h3>CRM Development</h3><p>Custom modules, integrations, dashboards, and workflow automation.</p></article>
           <article class="feature-card reveal"><div class="icon-box"><i class="fa-solid fa-cubes"></i></div><h3>ERP Development</h3><p>Enterprise modules tuned for operational control and reporting.</p></article>
           <article class="feature-card reveal"><div class="icon-box"><i class="fa-solid fa-cloud-arrow-up"></i></div><h3>Cloud Migration</h3><p>Move legacy data and workflows into a secure cloud operating model.</p></article>
@@ -169,7 +174,7 @@
       </div>
     </section>
 
-    <section>
+      <section class="testimonial-parallax-section">
       <div class="container split">
         <div class="testimonial-slider reveal">
           <div class="testimonial-track">
@@ -184,8 +189,7 @@
                 <i class="fa-solid fa-star"></i>
               </div>
               <p>"Stackly replaced four disconnected systems and gave leadership trustworthy numbers every morning."</p>
-              <h3>Priya Raman, COO at Nexora</h3>
-            </article>
+              <h3>Priya Raman, COO at Nexora</h3></article>
             <article class="testimonial-card">
               <div class="stars">
                 <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
@@ -225,20 +229,26 @@
       </div>
     </section>
   </main>
-
+  <!-- footer -->
+   
   <footer class="site-footer">
     <div class="container footer-grid">
-      <div><a class="logo" href="index.html"><span class="logo-mark"><i class="fa-solid fa-layer-group"></i></span>Stackly</a><p>Premium CRM and ERP software for companies that want sharper operations, cleaner data, and faster growth.</p></div>
+      <div class="footer-brand"><a class="logo" href="index.html"><span class="logo-mark"><i class="fa-solid fa-layer-group"></i></span>Stackly</a><p>Premium CRM and ERP software for companies that want sharper operations, cleaner data, and faster growth.</p></div>
       <div><h3>Quick Links</h3><div class="footer-links"><a href="about.html">About</a><a href="pricing.html">Pricing</a><a href="blog.html">Blog</a><a href="career.html">Career</a></div></div>
       <div><h3>Solutions</h3><div class="footer-links"><a href="crm.html">CRM</a><a href="erp.html">ERP</a><a href="services.html">Services</a><a href="industries.html">Industries</a></div></div>
-      <div><h3>Newsletter</h3><form class="newsletter validate-form" data-success="You are subscribed."><input type="email" placeholder="Email address" required><button class="btn btn-primary" type="submit"><i class="fa-solid fa-paper-plane"></i></button></form></div>
+      <div><h3>Contact</h3><div class="footer-links"><a href="tel:+919876543210"><i class="fa-solid fa-phone"></i> +91 98765 43210</a><a href="mailto:hello@stackly.example"><i class="fa-solid fa-envelope"></i> hello@stackly.example</a><a href="contact.html"><i class="fa-solid fa-location-dot"></i> Bengaluru, India</a></div></div>
+      <div><h3>Newsletter</h3><form class="newsletter validate-form" data-success="You are subscribed."><input type="email" placeholder="Email address" required><button class="btn btn-primary" type="submit"><i class="fa-solid fa-paper-plane"></i></button></form><div class="social-links"><a href="404.html" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a><a href="404.html" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a><a href="404.html" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a><a href="404.html" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a></div></div>
     </div>
-    <div class="container footer-bottom"><span>Copyright 2026 Stackly. All rights reserved.</span><span><a href="#">Privacy Policy</a> · <a href="#">Terms</a></span></div>
+    <div class="container footer-bottom"><span>Copyright 2026 Stackly. All rights reserved.</span><span><a href="404.html">Privacy Policy</a> &middot; <a href="404.html">Terms</a></span></div>
   </footer>
-  <button class="back-to-top" aria-label="Back to top"><i class="fa-solid fa-arrow-up"></i></button>
-  <div class="toast" role="status"></div>
+
+    <button class="back-to-top" aria-label="Back to top"><i class="fa-solid fa-arrow-up"></i></button>
+    <div class="toast" role="status"></div>
+
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="js/main.js"></script>
+  <script src="js/pan-control.js" defer></script>
+  <script src="js/parallax.js" defer></script>
   <script src="js/animation.js"></script>
   <script src="js/counter.js"></script>
   <script src="js/chart.js"></script>
