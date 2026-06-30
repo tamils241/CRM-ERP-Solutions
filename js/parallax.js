@@ -65,6 +65,4 @@
   if (document.readyState === 'complete' || document.readyState === 'interactive') initParallax(document);
   else document.addEventListener('DOMContentLoaded', ()=> initParallax(document));
 
-  // expose for testing
-  window.StacklyParallax = { init: initParallax };
 })();

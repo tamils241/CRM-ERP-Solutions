@@ -60,25 +60,115 @@
     }
     var revenueCanvas = document.getElementById("revenueChart");
     var moduleCanvas = document.getElementById("moduleChart");
-    if (window.Chart) {
-      if (revenueCanvas) {
-        new Chart(revenueCanvas, {
-          type: "line",
-          data: {
-            labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
-            datasets: [{ label: "Revenue", data: [120, 190, 170, 220, 260, 310], borderColor: "#D4AF37", backgroundColor: "rgba(212,175,55,0.1)", fill: true, tension: 0.4 }]
-          }
-        });
+    if (revenueCanvas) drawRevenueChart(revenueCanvas);
+    if (moduleCanvas) drawModuleChart(moduleCanvas);
+
+    function prepCanvas(canvas, fallbackWidth, fallbackHeight) {
+      var ctx = canvas.getContext("2d");
+      if (!ctx) return null;
+      var ratio = window.devicePixelRatio || 1;
+      var rect = canvas.getBoundingClientRect();
+      var width = Math.max(260, Math.floor(rect.width || fallbackWidth));
+      var height = Math.max(180, Math.floor(rect.height || fallbackHeight));
+      canvas.width = width * ratio;
+      canvas.height = height * ratio;
+      canvas.style.width = width + "px";
+      canvas.style.height = height + "px";
+      ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
+      ctx.clearRect(0, 0, width, height);
+      return { ctx: ctx, width: width, height: height };
+    }
+
+    function drawRevenueChart(canvas) {
+      var chart = prepCanvas(canvas, 520, 260);
+      if (!chart) return;
+      var ctx = chart.ctx;
+      var width = chart.width;
+      var height = chart.height;
+      var data = [120, 190, 170, 220, 260, 310];
+      var labels = ["Jan", "Feb", "Mar", "Apr", "May", "Jun"];
+      var pad = { top: 20, right: 24, bottom: 38, left: 38 };
+      var chartW = width - pad.left - pad.right;
+      var chartH = height - pad.top - pad.bottom;
+      var max = 340;
+
+      ctx.strokeStyle = "rgba(148, 163, 184, 0.2)";
+      ctx.lineWidth = 1;
+      for (var i = 0; i <= 4; i += 1) {
+        var y = pad.top + chartH / 4 * i;
+        ctx.beginPath();
+        ctx.moveTo(pad.left, y);
+        ctx.lineTo(width - pad.right, y);
+        ctx.stroke();
       }
-      if (moduleCanvas) {
-        new Chart(moduleCanvas, {
-          type: "doughnut",
-          data: {
-            labels: ["CRM", "ERP", "BI", "Projects"],
-            datasets: [{ data: [35, 28, 22, 15], backgroundColor: ["#D4AF37", "#3B82F6", "#F59E0B", "#10B981"] }]
-          }
-        });
-      }
+
+      var points = data.map(function(value, index) {
+        return {
+          x: pad.left + chartW / (data.length - 1) * index,
+          y: pad.top + chartH - value / max * chartH
+        };
+      });
+
+      ctx.beginPath();
+      ctx.moveTo(points[0].x, height - pad.bottom);
+      points.forEach(function(point) { ctx.lineTo(point.x, point.y); });
+      ctx.lineTo(points[points.length - 1].x, height - pad.bottom);
+      ctx.closePath();
+      ctx.fillStyle = "rgba(212, 175, 55, 0.12)";
+      ctx.fill();
+
+      ctx.beginPath();
+      points.forEach(function(point, index) {
+        if (index === 0) ctx.moveTo(point.x, point.y);
+        else ctx.lineTo(point.x, point.y);
+      });
+      ctx.strokeStyle = "#D4AF37";
+      ctx.lineWidth = 3;
+      ctx.stroke();
+
+      ctx.fillStyle = "#94a3b8";
+      ctx.font = "12px Inter, system-ui, sans-serif";
+      ctx.textAlign = "center";
+      labels.forEach(function(label, index) {
+        ctx.fillText(label, points[index].x, height - 14);
+      });
+    }
+
+    function drawModuleChart(canvas) {
+      var chart = prepCanvas(canvas, 320, 240);
+      if (!chart) return;
+      var ctx = chart.ctx;
+      var width = chart.width;
+      var height = chart.height;
+      var values = [35, 28, 22, 15];
+      var colors = ["#D4AF37", "#3B82F6", "#F59E0B", "#10B981"];
+      var labels = ["CRM", "ERP", "BI", "Projects"];
+      var total = values.reduce(function(sum, value) { return sum + value; }, 0);
+      var radius = Math.min(width, height) * 0.28;
+      var cx = width * 0.38;
+      var cy = height * 0.5;
+      var angle = -Math.PI / 2;
+
+      values.forEach(function(value, index) {
+        var next = angle + value / total * Math.PI * 2;
+        ctx.beginPath();
+        ctx.arc(cx, cy, radius, angle, next);
+        ctx.arc(cx, cy, radius * 0.56, next, angle, true);
+        ctx.closePath();
+        ctx.fillStyle = colors[index];
+        ctx.fill();
+        angle = next;
+      });
+
+      ctx.font = "12px Inter, system-ui, sans-serif";
+      ctx.textAlign = "left";
+      labels.forEach(function(label, index) {
+        var y = cy - 42 + index * 28;
+        ctx.fillStyle = colors[index];
+        ctx.fillRect(width * 0.68, y - 9, 12, 12);
+        ctx.fillStyle = "#94a3b8";
+        ctx.fillText(label + " " + values[index] + "%", width * 0.68 + 20, y + 1);
+      });
     }
   });
   window.dashToast = function(message, type) {

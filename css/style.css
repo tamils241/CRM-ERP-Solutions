@@ -705,34 +705,6 @@ section + section { padding-top: 48px; }
 }
 .feature-card:hover::after { opacity: 0.14; }
 
-/* Hover-duration badge shown when pointer enters a feature card */
-.feature-card .hover-badge {
-  position: absolute;
-  right: 12px;
-  top: 12px;
-  z-index: 6;
-  display: inline-block;
-  padding: 6px 10px;
-  border-radius: 999px;
-  font-weight: 800;
-  font-size: 0.78rem;
-  line-height: 1;
-  color: var(--dark);
-  background: rgba(255,255,255,0.94);
-  box-shadow: 0 8px 20px rgba(15,23,42,0.08);
-  transform: translateY(-6px);
-  opacity: 0;
-  transition: opacity 0.18s ease, transform 0.18s ease;
-  pointer-events: none;
-}
-.feature-card.hovered::after { opacity: 0.22; }
-.feature-card.hovered .hover-badge { opacity: 1; transform: translateY(0); }
-
-body.dark-mode .feature-card .hover-badge {
-  background: rgba(15,23,42,0.86);
-  color: var(--white);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.48);
-}
 .icon-box {
   width: 50px;
   height: 50px;

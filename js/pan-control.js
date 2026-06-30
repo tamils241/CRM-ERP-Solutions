@@ -26,42 +26,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (rawHoverDur) grid.style.setProperty('--pan-duration-hover', rawHoverDur);
   });
 
-  // create hover badges for feature-cards and show computed duration on hover
-  const allCards = document.querySelectorAll('.feature-card');
-  allCards.forEach(card => {
-    // avoid duplicating badges
-    if (card.querySelector('.hover-badge')) return;
-    const badge = document.createElement('span');
-    badge.className = 'hover-badge';
-    badge.setAttribute('aria-hidden', 'true');
-    card.appendChild(badge);
-
-    let hoverTimeout = null;
-    card.addEventListener('mouseenter', (e) => {
-      const grid = card.closest('.crm-feature-grid, .service-feature-grid');
-      // read hover duration first, then normal duration
-      const cs = window.getComputedStyle(grid || document.documentElement);
-      let dur = (cs.getPropertyValue('--pan-duration-hover') || '').trim();
-      if (!dur) dur = (cs.getPropertyValue('--pan-duration') || '').trim();
-      // fallback to data attribute
-      if (!dur && grid) dur = grid.dataset.panDuration || grid.dataset.pan || '';
-      if (dur && /^\d+$/.test(dur)) dur = dur + 's';
-      if (!dur) dur = 'auto';
-      badge.textContent = dur;
-      card.classList.add('hovered');
-      // small delay to avoid flicker when moving pointer quickly
-      if (hoverTimeout) clearTimeout(hoverTimeout);
-      hoverTimeout = setTimeout(() => {
-        badge.style.opacity = '1';
-      }, 60);
-    });
-    card.addEventListener('mouseleave', () => {
-      card.classList.remove('hovered');
-      if (hoverTimeout) clearTimeout(hoverTimeout);
-      badge.style.opacity = '';
-    });
-  });
-
   // Expose a small API for runtime control
   window.FeaturePanControl = {
     setDuration(grid, duration) {
