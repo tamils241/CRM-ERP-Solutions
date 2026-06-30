@@ -242,6 +242,7 @@ body.dark-mode .btn-light:not(.theme-toggle):hover {
   padding: 132px 0 70px;
   position: relative;
   isolation: isolate;
+  overflow: hidden;
   background:
     linear-gradient(135deg, rgba(7, 17, 31, 0.9), rgba(124, 45, 18, 0.76)),
     linear-gradient(rgba(249, 115, 22, 0.055) 1px, transparent 1px),

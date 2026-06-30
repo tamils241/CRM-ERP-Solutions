@@ -20,7 +20,7 @@
   <header class="site-header">
     <div class="container nav-wrap">
       <a class="logo" href="index.html"><span class="logo-mark"><i class="fa-solid fa-layer-group"></i></span>Stackly</a>
-      <nav class="nav-links">
+      <nav class="nav-links" aria-label="Main navigation">
         <a href="index.html">Home</a>
         <a class="active" href="about.html">About</a>
         <a href="crm.html">CRM</a>
@@ -38,7 +38,7 @@
     </div>
   </header>
 
-  <main>
+  <main><a href="index.html" class="back-home" aria-label="Back to Home"><i class="fa-solid fa-house"></i></a>
     <section class="hero parallax-hero" style="background: linear-gradient(135deg, rgba(7, 17, 31, 0.9), rgba(124, 45, 18, 0.76)), linear-gradient(rgba(249, 115, 22, 0.055) 1px, transparent 1px), linear-gradient(90deg, rgba(249, 115, 22, 0.055) 1px, transparent 1px), radial-gradient(circle at 18% 18%, rgba(251, 191, 36, 0.18), transparent 28%), radial-gradient(circle at 82% 8%, rgba(234, 88, 12, 0.16), transparent 30%), url('images/bg.webp'), var(--bg); background-size: auto, 44px 44px, 44px 44px, auto, auto, cover, auto; background-position: center, var(--hero-bg-x, 0) var(--hero-bg-y, 0), var(--hero-bg-x, 0) var(--hero-bg-y, 0), center, center, center, center;">
       <div class="container hero-grid">
         <div class="hero-copy fade-up">
@@ -165,7 +165,7 @@
           <a href="erp.html">ERP</a>
           <a href="services.html">Services</a>
           <a href="industries.html">Industries</a>
-          <a href="portfolios.html">Portfolios</a>
+          <a href="portfolio.html">Portfolios</a>
         </div>
       </div>
       <div><h3>Contact</h3><div class="footer-links"><a href="tel:+919876543210"><i class="fa-solid fa-phone"></i> +91 98765 43210</a><a href="mailto:hello@stackly.example"><i class="fa-solid fa-envelope"></i> hello@stackly.example</a><a href="contact.html"><i class="fa-solid fa-location-dot"></i> Bengaluru, India</a></div></div>
@@ -177,7 +177,6 @@
   <button class="back-to-top"><i class="fa-solid fa-arrow-up"></i></button>
   <div class="toast"></div>
 
-  <script src="js/loader.js" defer></script>
   <script src="js/main.js"></script>
   <script src="js/parallax.js" defer></script>
   <script src="js/animation.js"></script>

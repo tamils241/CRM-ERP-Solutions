@@ -4,7 +4,24 @@
     var toggles = document.querySelectorAll(".sidebar-toggle");
     toggles.forEach(function(t) {
       t.addEventListener("click", function() {
-        document.querySelector(".sidebar").classList.toggle("collapsed");
+        var sidebar = document.querySelector(".sidebar");
+        sidebar.classList.toggle("collapsed");
+        var backdrop = document.getElementById("sidebarBackdrop");
+        if (sidebar.classList.contains("collapsed")) {
+          if (!backdrop) {
+            backdrop = document.createElement("div");
+            backdrop.id = "sidebarBackdrop";
+            backdrop.style.cssText = "position:fixed;inset:0;z-index:999;background:rgba(0,0,0,0.4);transition:opacity 0.3s;opacity:0";
+            document.body.appendChild(backdrop);
+            requestAnimationFrame(function() { backdrop.style.opacity = "1"; });
+            backdrop.addEventListener("click", function() {
+              sidebar.classList.remove("collapsed");
+              backdrop.remove();
+            });
+          }
+        } else {
+          if (backdrop) backdrop.remove();
+        }
       });
     });
     var navLinks = document.querySelectorAll(".side-nav a[data-target]");
@@ -19,6 +36,10 @@
         });
         var panel = document.getElementById(target);
         if (panel) panel.classList.add("active");
+        var sidebar = document.querySelector(".sidebar");
+        sidebar.classList.remove("collapsed");
+        var backdrop = document.getElementById("sidebarBackdrop");
+        if (backdrop) backdrop.remove();
       });
     });
     var themeBtn = document.querySelector(".theme-toggle");
