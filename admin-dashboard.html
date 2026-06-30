@@ -6,16 +6,239 @@
 </head>
 <body class="dashboard-body dark-dash">
   <div class="dashboard-shell">
-    <aside class="sidebar"><a class="side-logo" href="index.html"><span><i class="fa-solid fa-layer-group"></i></span>Stackly Admin</a><nav class="side-nav"><a class="active" href="#"><i class="fa-solid fa-gauge-high"></i>Dashboard</a><a href="#"><i class="fa-solid fa-user-shield"></i>Users</a><a href="#"><i class="fa-solid fa-building"></i>Companies</a><a href="#"><i class="fa-solid fa-handshake"></i>CRM</a><a href="#"><i class="fa-solid fa-cubes"></i>ERP</a><a href="#"><i class="fa-solid fa-diagram-project"></i>Projects</a><a href="#"><i class="fa-solid fa-sack-dollar"></i>Revenue</a><a href="#"><i class="fa-solid fa-file-invoice-dollar"></i>Invoices</a><a href="#"><i class="fa-solid fa-chart-simple"></i>Analytics</a><a href="#"><i class="fa-solid fa-key"></i>Roles</a><a href="#"><i class="fa-solid fa-lock"></i>Permissions</a><a href="#"><i class="fa-solid fa-gear"></i>Settings</a></nav></aside>
+    <aside class="sidebar">
+      <a class="side-logo" href="index.html"><span><i class="fa-solid fa-layer-group"></i></span>Stackly Admin</a>
+      <nav class="side-nav">
+        <a class="active" href="#dashboard" data-target="dashboard"><i class="fa-solid fa-gauge-high"></i>Dashboard</a>
+        <a href="#users" data-target="users"><i class="fa-solid fa-user-shield"></i>Users</a>
+        <a href="#companies" data-target="companies"><i class="fa-solid fa-building"></i>Companies</a>
+        <a href="#crm" data-target="crm"><i class="fa-solid fa-handshake"></i>CRM</a>
+        <a href="#erp" data-target="erp"><i class="fa-solid fa-cubes"></i>ERP</a>
+        <a href="#projects" data-target="projects"><i class="fa-solid fa-diagram-project"></i>Projects</a>
+        <a href="#revenue" data-target="revenue"><i class="fa-solid fa-sack-dollar"></i>Revenue</a>
+        <a href="#invoices" data-target="invoices"><i class="fa-solid fa-file-invoice-dollar"></i>Invoices</a>
+        <a href="#analytics" data-target="analytics"><i class="fa-solid fa-chart-simple"></i>Analytics</a>
+        <a href="#roles" data-target="roles"><i class="fa-solid fa-key"></i>Roles</a>
+        <a href="#permissions" data-target="permissions"><i class="fa-solid fa-lock"></i>Permissions</a>
+        <a href="#settings" data-target="settings"><i class="fa-solid fa-gear"></i>Settings</a>
+        <a href="login.html"><i class="fa-solid fa-arrow-right-from-bracket"></i>Logout</a>
+      </nav>
+    </aside>
     <main class="dashboard-main">
-      <div class="dashboard-top"><div><button class="btn btn-light sidebar-toggle"><i class="fa-solid fa-bars"></i></button><h1>Admin Dashboard</h1><p>Platform usage, revenue, CRM, ERP, users, roles, exports, and governance controls.</p></div><div class="dash-actions"><input class="dash-search" placeholder="Search users, companies, invoices"><button class="btn btn-light theme-toggle"><i class="fa-solid fa-sun"></i></button><button class="btn btn-light"><i class="fa-solid fa-filter"></i>Filter</button><button class="btn btn-primary"><i class="fa-solid fa-file-export"></i>Export</button></div></div>
-      <section class="dash-cards"><article class="dash-card"><span>Users</span><strong>8,420</strong></article><article class="dash-card"><span>Companies</span><strong>612</strong></article><article class="dash-card"><span>Revenue</span><strong>$1.8M</strong></article><article class="dash-card"><span>Open Invoices</span><strong>342</strong></article></section>
-      <section class="dash-layout"><div class="dash-panel"><h3>Revenue Analytics</h3><canvas id="revenueChart"></canvas></div><div class="dash-panel"><h3>Module Split</h3><canvas id="moduleChart"></canvas></div></section>
-      <section class="dash-panel" style="margin-top:18px"><h3>Companies</h3><div class="table-wrap"><table class="data-table"><thead><tr><th>Company</th><th>Plan</th><th>Modules</th><th>Risk</th><th>Status</th></tr></thead><tbody><tr><td>Nexora Systems</td><td>Enterprise</td><td>CRM, ERP, BI</td><td>Low</td><td><span class="status active">Active</span></td></tr><tr><td>Atlas Manufacturing</td><td>Professional</td><td>ERP, Projects</td><td>Medium</td><td><span class="status pending">Review</span></td></tr><tr><td>Urban Retail Group</td><td>Enterprise</td><td>CRM, Billing</td><td>High</td><td><span class="status risk">Risk</span></td></tr></tbody></table></div></section>
+      <div class="dashboard-top">
+        <div>
+          <button class="btn btn-light sidebar-toggle"><i class="fa-solid fa-bars"></i></button>
+          <a class="btn btn-light back-home" href="index.html"><i class="fa-solid fa-house"></i></a>
+          <h1>Admin Dashboard</h1>
+          <p>Platform usage, revenue, CRM, ERP, users, roles, exports, and governance controls.</p>
+        </div>
+        <div class="dash-actions">
+          <input class="dash-search" placeholder="Search users, companies, invoices">
+          <button class="btn btn-light theme-toggle"><i class="fa-solid fa-sun"></i></button>
+          <button class="btn btn-light"><i class="fa-solid fa-filter"></i>Filter</button>
+          <button class="btn btn-primary"><i class="fa-solid fa-file-export"></i>Export</button>
+        </div>
+      </div>
+      <section class="tab-panel active" id="dashboard">
+        <section class="dash-cards">
+          <article class="dash-card"><span>Users</span><strong>8,420</strong></article>
+          <article class="dash-card"><span>Companies</span><strong>612</strong></article>
+          <article class="dash-card"><span>Revenue</span><strong>$1.8M</strong></article>
+          <article class="dash-card"><span>Open Invoices</span><strong>342</strong></article>
+        </section>
+        <section class="dash-layout">
+          <div class="dash-panel"><h3>Revenue Analytics</h3><canvas id="revenueChart"></canvas></div>
+          <div class="dash-panel"><h3>Module Split</h3><canvas id="moduleChart"></canvas></div>
+        </section>
+        <section class="dash-panel">
+          <h3>Companies</h3>
+          <div class="table-wrap">
+            <table class="data-table">
+              <thead><tr><th>Company</th><th>Plan</th><th>Modules</th><th>Risk</th><th>Status</th></tr></thead>
+              <tbody>
+                <tr><td>Nexora Systems</td><td>Enterprise</td><td>CRM, ERP, BI</td><td>Low</td><td><span class="status active">Active</span></td></tr>
+                <tr><td>Atlas Manufacturing</td><td>Professional</td><td>ERP, Projects</td><td>Medium</td><td><span class="status pending">Review</span></td></tr>
+                <tr><td>Urban Retail Group</td><td>Enterprise</td><td>CRM, Billing</td><td>High</td><td><span class="status risk">Risk</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </section>
+      <section class="tab-panel" id="users">
+        <div class="dash-panel">
+          <h3>Users</h3>
+          <p>Manage all registered users, their roles, and account status.</p>
+          <div class="table-wrap">
+            <table class="data-table">
+              <thead><tr><th>Name</th><th>Email</th><th>Role</th><th>Status</th></tr></thead>
+              <tbody>
+                <tr><td>Alice Chen</td><td>alice@company.com</td><td>Admin</td><td><span class="status active">Active</span></td></tr>
+                <tr><td>Bob Martinez</td><td>bob@company.com</td><td>User</td><td><span class="status active">Active</span></td></tr>
+                <tr><td>Carol Davis</td><td>carol@company.com</td><td>User</td><td><span class="status pending">Pending</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+      <section class="tab-panel" id="companies">
+        <div class="dash-panel">
+          <h3>Companies</h3>
+          <p>View and manage all registered companies, plans, and subscriptions.</p>
+          <div class="table-wrap">
+            <table class="data-table">
+              <thead><tr><th>Company</th><th>Plan</th><th>Users</th><th>Status</th></tr></thead>
+              <tbody>
+                <tr><td>Nexora Systems</td><td>Enterprise</td><td>124</td><td><span class="status active">Active</span></td></tr>
+                <tr><td>Atlas Manufacturing</td><td>Professional</td><td>48</td><td><span class="status active">Active</span></td></tr>
+                <tr><td>Urban Retail Group</td><td>Enterprise</td><td>76</td><td><span class="status risk">At Risk</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+      <section class="tab-panel" id="crm">
+        <div class="dash-panel">
+          <h3>CRM</h3>
+          <p>Monitor CRM pipeline, deal stages, lead conversion, and engagement.</p>
+          <div class="pipeline-list">
+            <div class="pipeline-step"><strong>Leads</strong><span>320</span></div>
+            <div class="pipeline-step"><strong>Qualified</strong><span>184</span></div>
+            <div class="pipeline-step"><strong>Proposal</strong><span>92</span></div>
+            <div class="pipeline-step"><strong>Negotiation</strong><span>54</span></div>
+            <div class="pipeline-step"><strong>Closed Won</strong><span>28</span></div>
+          </div>
+        </div>
+      </section>
+      <section class="tab-panel" id="erp">
+        <div class="dash-panel">
+          <h3>ERP</h3>
+          <p>Track ERP module usage, inventory, supply chain, and manufacturing.</p>
+          <div class="table-wrap">
+            <table class="data-table">
+              <thead><tr><th>Module</th><th>Status</th><th>Usage</th><th>Issues</th></tr></thead>
+              <tbody>
+                <tr><td>Inventory</td><td><span class="status active">Online</span></td><td>86%</td><td>2</td></tr>
+                <tr><td>Procurement</td><td><span class="status active">Online</span></td><td>72%</td><td>1</td></tr>
+                <tr><td>Manufacturing</td><td><span class="status pending">Maintenance</span></td><td>54%</td><td>5</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+      <section class="tab-panel" id="projects">
+        <div class="dash-panel">
+          <h3>Projects</h3>
+          <p>Oversee all active and completed projects across the organization.</p>
+          <div class="table-wrap">
+            <table class="data-table">
+              <thead><tr><th>Project</th><th>Client</th><th>Deadline</th><th>Status</th></tr></thead>
+              <tbody>
+                <tr><td>CRM Onboarding</td><td>Nexora</td><td>Jul 28</td><td><span class="status active">Active</span></td></tr>
+                <tr><td>ERP Inventory</td><td>Atlas Works</td><td>Aug 15</td><td><span class="status pending">Pending</span></td></tr>
+                <tr><td>Analytics Setup</td><td>LumaWorks</td><td>Sep 03</td><td><span class="status paid">Complete</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+      <section class="tab-panel" id="revenue">
+        <div class="dash-panel">
+          <h3>Revenue</h3>
+          <p>Revenue breakdown by source, recurring vs one-time, and forecasts.</p>
+          <div class="pipeline-list">
+            <div class="pipeline-step"><strong>MRR</strong><span>$142K</span></div>
+            <div class="pipeline-step"><strong>ARR</strong><span>$1.7M</span></div>
+            <div class="pipeline-step"><strong>One-time</strong><span>$98K</span></div>
+            <div class="pipeline-step"><strong>Forecast</strong><span>$2.1M</span></div>
+          </div>
+        </div>
+      </section>
+      <section class="tab-panel" id="invoices">
+        <div class="dash-panel">
+          <h3>Invoices</h3>
+          <p>All invoices, payment statuses, overdue items, and billing history.</p>
+          <div class="table-wrap">
+            <table class="data-table">
+              <thead><tr><th>Invoice</th><th>Company</th><th>Amount</th><th>Status</th></tr></thead>
+              <tbody>
+                <tr><td>INV-2048</td><td>Nexora</td><td>$12,400</td><td><span class="status paid">Paid</span></td></tr>
+                <tr><td>INV-2049</td><td>Atlas Works</td><td>$8,620</td><td><span class="status pending">Pending</span></td></tr>
+                <tr><td>INV-2050</td><td>LumaWorks</td><td>$5,240</td><td><span class="status risk">Overdue</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+      <section class="tab-panel" id="analytics">
+        <div class="dash-panel">
+          <h3>Analytics</h3>
+          <p>Platform-wide analytics — adoption, feature usage, and performance KPIs.</p>
+          <div class="pipeline-list">
+            <div class="pipeline-step"><strong>Active Users</strong><span>3,240</span></div>
+            <div class="pipeline-step"><strong>Avg Session</strong><span>24 min</span></div>
+            <div class="pipeline-step"><strong>Adoption Rate</strong><span>78%</span></div>
+            <div class="pipeline-step"><strong>NPS Score</strong><span>62</span></div>
+          </div>
+        </div>
+      </section>
+      <section class="tab-panel" id="roles">
+        <div class="dash-panel">
+          <h3>Roles</h3>
+          <p>Define and manage user roles and access levels.</p>
+          <div class="table-wrap">
+            <table class="data-table">
+              <thead><tr><th>Role</th><th>Users</th><th>Permissions</th><th>Status</th></tr></thead>
+              <tbody>
+                <tr><td>Admin</td><td>12</td><td>Full access</td><td><span class="status active">Active</span></td></tr>
+                <tr><td>Manager</td><td>38</td><td>Limited</td><td><span class="status active">Active</span></td></tr>
+                <tr><td>User</td><td>186</td><td>Basic</td><td><span class="status active">Active</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+      <section class="tab-panel" id="permissions">
+        <div class="dash-panel">
+          <h3>Permissions</h3>
+          <p>Granular permission settings per role and module.</p>
+          <div class="table-wrap">
+            <table class="data-table">
+              <thead><tr><th>Module</th><th>Admin</th><th>Manager</th><th>User</th></tr></thead>
+              <tbody>
+                <tr><td>CRM</td><td><i class="fa-solid fa-check" style="color:#10B981"></i></td><td><i class="fa-solid fa-check" style="color:#10B981"></i></td><td><i class="fa-solid fa-check" style="color:#10B981"></i></td></tr>
+                <tr><td>ERP</td><td><i class="fa-solid fa-check" style="color:#10B981"></i></td><td><i class="fa-solid fa-check" style="color:#10B981"></i></td><td><i class="fa-solid fa-xmark" style="color:#EF4444"></i></td></tr>
+                <tr><td>Analytics</td><td><i class="fa-solid fa-check" style="color:#10B981"></i></td><td><i class="fa-solid fa-check" style="color:#10B981"></i></td><td><i class="fa-solid fa-xmark" style="color:#EF4444"></i></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+      <section class="tab-panel" id="settings">
+        <div class="dash-panel">
+          <h3>Settings</h3>
+          <form class="settings-form">
+            <div class="form-group">
+              <label>Email Notifications</label>
+              <select><option value="all">All notifications</option><option value="important">Important only</option><option value="none">None</option></select>
+            </div>
+            <div class="form-group">
+              <label>Language</label>
+              <select><option value="en">English</option><option value="hi">Hindi</option><option value="es">Spanish</option></select>
+            </div>
+            <div class="form-group">
+              <label>Time Zone</label>
+              <select><option value="IST">India Standard Time (IST)</option><option value="UTC">UTC</option><option value="EST">Eastern (EST)</option></select>
+            </div>
+            <div class="form-group">
+              <label><input type="checkbox" checked> Enable dark mode by default</label>
+            </div>
+            <button class="btn btn-primary" type="submit">Save Settings</button>
+          </form>
+        </div>
+      </section>
     </main>
   </div>
-
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
   <script src="js/dashboard.js" defer></script>
 </body>
 </html>

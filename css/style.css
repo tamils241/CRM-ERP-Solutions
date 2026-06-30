@@ -257,8 +257,9 @@ body.dark-mode .btn-light:not(.theme-toggle):hover {
     var(--hero-bg-x, 0) var(--hero-bg-y, 0),
     center,
     center,
-    center,
+    var(--hero-bg-x, 0) var(--hero-bg-y, 0),
     center;
+  transition: background-position 1s ease-out;
 }
 
 /* Parallax helpers */
@@ -355,7 +356,7 @@ p { color: var(--muted); line-height: 1.75; }
 .parallax-hero .hero-copy,
 .parallax-hero .dashboard-visual {
   will-change: transform;
-  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 1s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
 
@@ -508,7 +509,14 @@ section + section { padding-top: 48px; }
 
 .feature-card, .content-card, .testimonial-card, .price-card {
   padding: 26px;
-  transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+  transform-style: preserve-3d;
+  will-change: transform;
+  transition: box-shadow 0.22s ease, border-color 0.22s ease;
+}
+
+.feature-card:hover, .content-card:hover, .testimonial-card:hover, .price-card:hover {
+  border-color: rgba(249, 115, 22, 0.32);
+  box-shadow: 0 24px 60px rgba(249, 115, 22, 0.14);
 }
 .crm-feature-grid .feature-card {
   position: relative;
@@ -561,11 +569,10 @@ section + section { padding-top: 48px; }
 /* CRM feature cards: subtle pan + hover lift */
 .crm-feature-grid .feature-card {
   background-position: center;
-  transition: transform 0.28s ease, box-shadow 0.28s ease, background-position 10s linear;
+  transition: box-shadow 0.28s ease, background-position 10s linear;
   will-change: transform, background-position;
 }
 .crm-feature-grid .feature-card:hover {
-  transform: translateY(-8px) scale(1.02);
   box-shadow: 0 30px 70px rgba(15, 23, 42, 0.16);
 }
 
@@ -628,11 +635,10 @@ section + section { padding-top: 48px; }
   --bg-pos-x: 50%;
   --bg-pos-y: 50%;
   background-position: var(--bg-pos-x) var(--bg-pos-y);
-  transition: transform 0.28s ease, box-shadow 0.28s ease;
+  transition: box-shadow 0.28s ease;
   will-change: transform, background-position;
 }
 .service-feature-grid .feature-card:hover {
-  transform: translateY(-8px) scale(1.02);
   box-shadow: 0 30px 70px rgba(15, 23, 42, 0.16);
 }
 
@@ -721,11 +727,6 @@ body.dark-mode .feature-card .hover-badge {
   background: rgba(15,23,42,0.86);
   color: var(--white);
   box-shadow: 0 8px 20px rgba(0,0,0,0.48);
-}
-.feature-card:hover, .content-card:hover, .testimonial-card:hover, .price-card:hover {
-  transform: translateY(-8px);
-  border-color: rgba(249, 115, 22, 0.32);
-  box-shadow: 0 24px 60px rgba(249, 115, 22, 0.14);
 }
 .icon-box {
   width: 50px;
@@ -1011,6 +1012,11 @@ body.dark-mode .feature-card .hover-badge {
 }
 .social-row { display: flex; gap: 10px; margin: 16px 0; }
 .social-row .btn { flex: 1; }
+.auth-panel .form-card { text-align: center; }
+.auth-panel .form-group,
+.auth-panel .form-grid { text-align: left; }
+.auth-panel .form-grid { margin-bottom: 16px; }
+.auth-panel .form-grid label { cursor: pointer; display: inline-flex; align-items: center; gap: 6px; }
 
 .site-footer {
   padding: 70px 0 26px;
@@ -1178,10 +1184,45 @@ body.dark-mode .feature-card .hover-badge {
 .map-placeholder {
   min-height: 320px;
   border-radius: 8px;
-  background:
-    linear-gradient(135deg, rgba(249, 115, 22, 0.14), rgba(251, 191, 36, 0.13)),
-    repeating-linear-gradient(45deg, transparent 0 18px, rgba(15, 23, 42, 0.05) 18px 19px);
-  display: grid;
-  place-items: center;
+  overflow: hidden;
   border: 1px solid var(--line);
+}
+.map-placeholder iframe {
+  display: block;
+  width: 100%;
+  height: 320px;
+}
+
+/* 3D card animations */
+.card-shine {
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0) 100%);
+  transform: rotate(30deg);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  z-index: 1;
+}
+body.dark-mode .card-shine {
+  background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.05) 50%, rgba(255,255,255,0) 100%);
+}
+.feature-card.clicked, .content-card.clicked, .testimonial-card.clicked, .price-card.clicked {
+  transform: scale(0.97) !important;
+  transition: transform 0.15s ease;
+}
+.feature-card.pulse, .content-card.pulse, .testimonial-card.pulse, .price-card.pulse {
+  animation: cardPulseGlow 0.5s ease-out;
+}
+@keyframes cardPulseGlow {
+  0% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.7); }
+  70% { box-shadow: 0 0 0 18px rgba(212, 175, 55, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0); }
+}
+.feature-card.selected, .content-card.selected, .testimonial-card.selected, .price-card.selected {
+  border-color: #D4AF37 !important;
+  box-shadow: 0 0 25px rgba(212, 175, 55, 0.5) !important;
 }

@@ -1,82 +1,139 @@
-document.addEventListener("DOMContentLoaded", () => {
-  document.querySelector(".sidebar-toggle")?.addEventListener("click", () => {
-    document.querySelector(".sidebar")?.classList.toggle("open");
-  });
-
-  const revenue = document.getElementById("revenueChart");
-  if (revenue && window.Chart) {
-    new Chart(revenue, {
-      type: "line",
-      data: {
-        labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
-        datasets: [{
-          label: "Revenue",
-          data: [42, 58, 54, 76, 92, 118],
-          borderColor: "#F97316",
-          backgroundColor: "rgba(249,115,22,0.12)",
-          tension: 0.42,
-          fill: true
-        }]
-      },
-      options: { responsive: true, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true } } }
+(function() {
+  document.addEventListener("DOMContentLoaded", function() {
+    document.body.classList.add("loaded");
+    var toggles = document.querySelectorAll(".sidebar-toggle");
+    toggles.forEach(function(t) {
+      t.addEventListener("click", function() {
+        document.querySelector(".sidebar").classList.toggle("collapsed");
+      });
     });
-  }
-
-  const module = document.getElementById("moduleChart");
-  if (module && window.Chart) {
-    new Chart(module, {
-      type: "doughnut",
-      data: {
-        labels: ["CRM", "ERP", "BI", "Support"],
-        datasets: [{ data: [38, 31, 19, 12], backgroundColor: ["#F97316", "#EA580C", "#FBBF24", "#10B981"], borderWidth: 0 }]
-      },
-      options: { responsive: true, plugins: { legend: { position: "bottom" } } }
+    var navLinks = document.querySelectorAll(".side-nav a[data-target]");
+    navLinks.forEach(function(link) {
+      link.addEventListener("click", function(e) {
+        e.preventDefault();
+        navLinks.forEach(function(l) { l.classList.remove("active"); });
+        link.classList.add("active");
+        var target = link.getAttribute("data-target");
+        document.querySelectorAll(".tab-panel").forEach(function(p) {
+          p.classList.remove("active");
+        });
+        var panel = document.getElementById(target);
+        if (panel) panel.classList.add("active");
+      });
     });
-  }
-
-  const analyticsChart = document.getElementById("analyticsChart");
-  if (analyticsChart && window.Chart) {
-    new Chart(analyticsChart, {
-      type: "bar",
-      data: {
-        labels: ["Prospects", "Qualified", "Proposal", "Negotiation", "Closed"],
-        datasets: [{
-          label: "Pipeline Count",
-          data: [62, 45, 32, 18, 8],
-          backgroundColor: ["#F97316", "#EA580C", "#FBBF24", "#10B981", "#3B82F6"]
-        }]
-      },
-      options: {
-        responsive: true,
-        plugins: { legend: { display: false } },
-        scales: { y: { beginAtZero: true, ticks: { stepSize: 10 } } }
-      }
-    });
-  }
-
-  const tabPanels = document.querySelectorAll(".tab-panel");
-  const navLinks = document.querySelectorAll(".side-nav a[data-target]");
-
-  const setNavState = (target) => {
-    navLinks.forEach((link) => {
-      link.classList.toggle("active", link.dataset.target === target);
-    });
-    tabPanels.forEach((panel) => {
-      panel.classList.toggle("active", panel.id === target);
-    });
-    if (history.replaceState) {
-      history.replaceState(null, "", `#${target}`);
+    var themeBtn = document.querySelector(".theme-toggle");
+    if (themeBtn) {
+      themeBtn.addEventListener("click", function() {
+        document.body.classList.toggle("dark-dash");
+        var icon = themeBtn.querySelector("i");
+        if (icon) {
+          if (icon.classList.contains("fa-sun")) {
+            icon.classList.remove("fa-sun");
+            icon.classList.add("fa-moon");
+          } else {
+            icon.classList.remove("fa-moon");
+            icon.classList.add("fa-sun");
+          }
+        }
+      });
     }
+    var revenueCanvas = document.getElementById("revenueChart");
+    var moduleCanvas = document.getElementById("moduleChart");
+    if (window.Chart) {
+      if (revenueCanvas) {
+        new Chart(revenueCanvas, {
+          type: "line",
+          data: {
+            labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+            datasets: [{ label: "Revenue", data: [120, 190, 170, 220, 260, 310], borderColor: "#D4AF37", backgroundColor: "rgba(212,175,55,0.1)", fill: true, tension: 0.4 }]
+          }
+        });
+      }
+      if (moduleCanvas) {
+        new Chart(moduleCanvas, {
+          type: "doughnut",
+          data: {
+            labels: ["CRM", "ERP", "BI", "Projects"],
+            datasets: [{ data: [35, 28, 22, 15], backgroundColor: ["#D4AF37", "#3B82F6", "#F59E0B", "#10B981"] }]
+          }
+        });
+      }
+    }
+  });
+  window.dashToast = function(message, type) {
+    var bg = type === "error" ? "#EF4444" : type === "success" ? "#10B981" : "#D4AF37";
+    var toast = document.createElement("div");
+    toast.textContent = message || "Done!";
+    Object.assign(toast.style, { position: "fixed", top: "20px", right: "20px", background: bg, color: "#fff", padding: "12px 24px", borderRadius: "8px", zIndex: "10000", fontSize: "14px", fontFamily: "Inter, sans-serif", boxShadow: "0 4px 20px rgba(0,0,0,0.25)", opacity: "0", transition: "opacity 0.3s" });
+    document.body.appendChild(toast);
+    requestAnimationFrame(function() { toast.style.opacity = "1"; });
+    setTimeout(function() { toast.style.opacity = "0"; setTimeout(function() { toast.remove(); }, 300); }, 2500);
   };
-
-  navLinks.forEach((link) => {
-    link.addEventListener("click", (event) => {
-      event.preventDefault();
-      setNavState(link.dataset.target);
+  var btnNew = document.querySelector('.dash-actions .btn-primary');
+  if (btnNew) {
+    btnNew.addEventListener('click', function() {
+      dashToast('Record created successfully!', 'success');
+    });
+  }
+  var filterBtns = document.querySelectorAll('.dash-actions .btn-light:not(.theme-toggle):not(.sidebar-toggle)');
+  filterBtns.forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var bar = document.getElementById('filterBar');
+      if (bar) { bar.remove(); return; }
+      bar = document.createElement('div');
+      bar.id = 'filterBar';
+      bar.style.cssText = 'display:flex;gap:10px;padding:16px 20px;flex-wrap:wrap;align-items:center;border-radius:8px';
+      var inputs = [
+        { placeholder: 'Status', options: ['All', 'Active', 'Pending', 'Completed', 'Risk'] },
+        { placeholder: 'Priority', options: ['All', 'Low', 'Medium', 'High'] },
+        { placeholder: 'Date from', type: 'date' },
+        { placeholder: 'Date to', type: 'date' }
+      ];
+      inputs.forEach(function(cfg) {
+        var el;
+        if (cfg.options) {
+          el = document.createElement('select');
+          cfg.options.forEach(function(o) {
+            var opt = document.createElement('option');
+            opt.textContent = o;
+            opt.value = o;
+            el.appendChild(opt);
+          });
+        } else {
+          el = document.createElement('input');
+          el.type = cfg.type || 'text';
+          el.placeholder = cfg.placeholder;
+        }
+        el.style.cssText = 'padding:8px 12px;border:1px solid #e2e8f0;border-radius:6px;font-size:12px;background:#fff;outline:none;min-width:120px';
+        bar.appendChild(el);
+      });
+      var applyBtn = document.createElement('button');
+      applyBtn.textContent = 'Apply';
+      applyBtn.className = 'btn btn-primary';
+      applyBtn.style.cssText = 'padding:8px 14px;font-size:12px';
+      bar.appendChild(applyBtn);
+      var clearBtn = document.createElement('button');
+      clearBtn.textContent = 'Clear';
+      clearBtn.className = 'btn btn-light';
+      clearBtn.style.cssText = 'padding:8px 14px;font-size:12px';
+      bar.appendChild(clearBtn);
+      var top = document.querySelector('.dashboard-top');
+      top.parentNode.insertBefore(bar, top.nextSibling);
+      applyBtn.addEventListener('click', function() {
+        var status = bar.querySelector('select')?.value;
+        var rows = document.querySelectorAll('.data-table tbody tr');
+        rows.forEach(function(row) {
+          var statusCell = row.querySelector('.status');
+          if (!statusCell || status === 'All') { row.style.display = ''; return; }
+          row.style.display = statusCell.textContent.trim() === status ? '' : 'none';
+        });
+        dashToast('Filter applied: ' + (status || 'All'), 'info');
+      });
+      clearBtn.addEventListener('click', function() {
+        document.querySelectorAll('.data-table tbody tr').forEach(function(r) { r.style.display = ''; });
+        bar.querySelectorAll('select, input').forEach(function(el) { el.value = ''; });
+        dashToast('Filters cleared', 'info');
+      });
     });
   });
-
-  const currentHash = window.location.hash.replace("#", "") || "dashboard";
-  const validHash = Array.from(navLinks).some((link) => link.dataset.target === currentHash) ? currentHash : "dashboard";
-  setNavState(validHash);
-});
+})();

@@ -199,8 +199,9 @@
   }
   .map-placeholder {
     min-height: 240px;
-    text-align: center;
-    padding: 18px;
+  }
+  .map-placeholder iframe {
+    height: 240px;
   }
   .footer-bottom {
     align-items: flex-start;

@@ -5,89 +5,211 @@
   <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=Poppins:wght@700;800;900&display=swap" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"><link rel="stylesheet" href="css/style.css"><link rel="stylesheet" href="css/dashboard.css"><link rel="stylesheet" href="css/responsive.css">
 </head>
 <body class="dashboard-body">
-  <div id="page-loader" aria-hidden="true">
-    <div class="loader-inner" role="status" aria-label="Loading"></div>
-  </div>
   <div class="dashboard-shell">
-    <aside class="sidebar"><a class="side-logo" href="index.html"><span>
-      <i class="fa-solid fa-layer-group"></i>
-    </span>Stackly</a>
-    <nav class="side-nav">
-      <a class="active" href="#dashboard" data-target="dashboard"><i class="fa-solid fa-chart-line"></i>Dashboard</a>
-      <a href="#customers" data-target="customers"><i class="fa-solid fa-users"></i>Customers</a>
-      <a href="#invoices" data-target="invoices"><i class="fa-solid fa-file-invoice"></i>Invoices</a>
-      <a href="#projects" data-target="projects"><i class="fa-solid fa-diagram-project"></i>Projects</a>
-      <a href="#analytics" data-target="analytics"><i class="fa-solid fa-chart-pie"></i>Analytics</a>
-      <a href="#reports" data-target="reports"><i class="fa-solid fa-clipboard-list"></i>Reports</a>
-      <a href="#notifications" data-target="notifications"><i class="fa-solid fa-bell"></i>Notifications</a>
-      <a href="#calendar" data-target="calendar"><i class="fa-solid fa-calendar-days"></i>Calendar</a>
-      <a href="#settings" data-target="settings"><i class="fa-solid fa-gear"></i>Settings</a>
-      <a href="#profile" data-target="profile"><i class="fa-solid fa-user"></i>Profile</a>
-      <a href="#logout" data-target="logout"><i class="fa-solid fa-arrow-right-from-bracket"></i>Logout</a>
-    </nav></aside>
+    <aside class="sidebar">
+      <a class="side-logo" href="index.html"><span><i class="fa-solid fa-layer-group"></i></span>Stackly</a>
+      <nav class="side-nav">
+        <a class="active" href="#dashboard" data-target="dashboard"><i class="fa-solid fa-gauge-high"></i>Dashboard</a>
+        <a href="#customers" data-target="customers"><i class="fa-solid fa-users"></i>Customers</a>
+        <a href="#invoices" data-target="invoices"><i class="fa-solid fa-file-invoice-dollar"></i>Invoices</a>
+        <a href="#projects" data-target="projects"><i class="fa-solid fa-diagram-project"></i>Projects</a>
+        <a href="#analytics" data-target="analytics"><i class="fa-solid fa-chart-simple"></i>Analytics</a>
+        <a href="#reports" data-target="reports"><i class="fa-solid fa-file-alt"></i>Reports</a>
+        <a href="#notifications" data-target="notifications"><i class="fa-solid fa-bell"></i>Notifications</a>
+        <a href="#calendar" data-target="calendar"><i class="fa-solid fa-calendar-days"></i>Calendar</a>
+        <a href="#settings" data-target="settings"><i class="fa-solid fa-gear"></i>Settings</a>
+        <a href="#profile" data-target="profile"><i class="fa-solid fa-user"></i>Profile</a>
+        <a href="login.html"><i class="fa-solid fa-arrow-right-from-bracket"></i>Logout</a>
+      </nav>
+    </aside>
     <main class="dashboard-main">
-      <div class="dashboard-top"><div><button class="btn btn-light sidebar-toggle"><i class="fa-solid fa-bars"></i></button><h1>User Dashboard</h1><p>Customer, invoice, project, report, and task activity for today.</p></div><div class="dash-actions"><input class="dash-search" placeholder="Search customers, invoices, projects"><button class="btn btn-light theme-toggle"><i class="fa-solid fa-moon"></i></button><button class="btn btn-primary"><i class="fa-solid fa-plus"></i>New</button></div></div>
+      <div class="dashboard-top">
+        <div>
+          <button class="btn btn-light sidebar-toggle"><i class="fa-solid fa-bars"></i></button>
+          <a class="btn btn-light back-home" href="index.html"><i class="fa-solid fa-house"></i></a>
+          <h1>User Dashboard</h1>
+          <p>Customers, invoices, projects, analytics, reports, notifications, calendar, and profile.</p>
+        </div>
+        <div class="dash-actions">
+          <input class="dash-search" placeholder="Search customers, projects, invoices">
+          <button class="btn btn-light theme-toggle"><i class="fa-solid fa-sun"></i></button>
+          <button class="btn btn-light"><i class="fa-solid fa-filter"></i>Filter</button>
+          <button class="btn btn-primary"><i class="fa-solid fa-plus"></i>New</button>
+        </div>
+      </div>
       <section class="tab-panel active" id="dashboard">
-        <section class="dash-cards"><article class="dash-card"><span>Customers</span><strong>1,284</strong></article><article class="dash-card"><span>Invoices</span><strong>$86K</strong></article><article class="dash-card"><span>Projects</span><strong>42</strong></article><article class="dash-card"><span>Tasks Done</span><strong>91%</strong></article></section>
-        <section class="dash-layout"><div class="dash-panel"><h3>Revenue Trend</h3><canvas id="revenueChart"></canvas></div><div class="dash-panel"><h3>Module Usage</h3><canvas id="moduleChart"></canvas></div></section>
-        <section class="dash-panel" style="margin-top:18px"><h3>Recent Work</h3><div class="table-wrap"><table class="data-table"><thead><tr><th>Customer</th><th>Project</th><th>Invoice</th><th>Status</th></tr></thead><tbody><tr><td>Nexora</td><td>CRM onboarding</td><td>INV-2048</td><td><span class="status paid">Paid</span></td></tr><tr><td>Atlas Works</td><td>ERP inventory</td><td>INV-2049</td><td><span class="status pending">Pending</span></td></tr><tr><td>LumaWorks</td><td>Analytics setup</td><td>INV-2050</td><td><span class="status active">Active</span></td></tr></tbody></table></div></section>
+        <section class="dash-cards">
+          <article class="dash-card"><span>Customers</span><strong>186</strong></article>
+          <article class="dash-card"><span>Open Invoices</span><strong>$42K</strong></article>
+          <article class="dash-card"><span>Active Projects</span><strong>14</strong></article>
+          <article class="dash-card"><span>Reports</span><strong>8</strong></article>
+        </section>
+        <section class="dash-layout">
+          <div class="dash-panel"><h3>Revenue</h3><canvas id="revenueChart"></canvas></div>
+          <div class="dash-panel"><h3>Module Usage</h3><canvas id="moduleChart"></canvas></div>
+        </section>
+        <section class="dash-panel">
+          <h3>Customers</h3>
+          <div class="table-wrap">
+            <table class="data-table">
+              <thead><tr><th>Customer</th><th>Plan</th><th>Value</th><th>Status</th></tr></thead>
+              <tbody>
+                <tr><td>Acme Corp</td><td>Enterprise</td><td>$24,000</td><td><span class="status active">Active</span></td></tr>
+                <tr><td>Orion Ltd</td><td>Professional</td><td>$12,500</td><td><span class="status pending">Pending</span></td></tr>
+                <tr><td>Zeta Industries</td><td>Basic</td><td>$4,200</td><td><span class="status active">Active</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
       </section>
       <section class="tab-panel" id="customers">
-        <h3>Customer Details</h3>
-        <p>Key account summaries, renewal dates, and support priorities are available here without leaving the dashboard.</p>
-        <div class="detail-grid">
-          <article class="detail-card"><span>Active Customers</span><strong>1,284</strong></article>
-          <article class="detail-card"><span>Renewals Due</span><strong>38</strong></article>
-          <article class="detail-card"><span>High Priority</span><strong>18</strong></article>
-          <article class="detail-card"><span>Open Tickets</span><strong>24</strong></article>
-        </div>
-        <div class="table-wrap">
-          <table class="data-table">
-            <thead><tr><th>Customer</th><th>Stage</th><th>Renewal</th><th>Priority</th></tr></thead>
-            <tbody><tr><td>Nexora</td><td>Onboarding</td><td>Jul 12</td><td><span class="status active">High</span></td></tr><tr><td>Atlas Works</td><td>Implementation</td><td>Aug 08</td><td><span class="status pending">Medium</span></td></tr><tr><td>LumaWorks</td><td>Support</td><td>Sep 01</td><td><span class="status paid">Low</span></td></tr></tbody>
-          </table>
+        <div class="dash-panel">
+          <h3>Customers</h3>
+          <p>View and manage all your customers and their account details.</p>
+          <div class="table-wrap">
+            <table class="data-table">
+              <thead><tr><th>Name</th><th>Email</th><th>Plan</th><th>Status</th></tr></thead>
+              <tbody>
+                <tr><td>Acme Corp</td><td>contact@acme.com</td><td>Enterprise</td><td><span class="status active">Active</span></td></tr>
+                <tr><td>Orion Ltd</td><td>hello@orion.ltd</td><td>Professional</td><td><span class="status active">Active</span></td></tr>
+                <tr><td>Zeta Industries</td><td>info@zeta.ind</td><td>Basic</td><td><span class="status pending">Pending</span></td></tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </section>
       <section class="tab-panel" id="invoices">
-        <section class="dash-cards"><article class="dash-card"><span>Pending invoices</span><strong>74</strong></article><article class="dash-card"><span>Paid this month</span><strong>$86K</strong></article><article class="dash-card"><span>Overdue</span><strong>12</strong></article><article class="dash-card"><span>Average delay</span><strong>7 days</strong></article></section>
-        <section class="dash-panel"><h3>Invoices</h3><p>View invoice overviews, upcoming payments, and billing status on this page.</p></section>
-        <section class="dash-panel" style="margin-top:18px"><h3>Recent Invoices</h3><div class="table-wrap"><table class="data-table"><thead><tr><th>Invoice</th><th>Customer</th><th>Amount</th><th>Status</th></tr></thead><tbody><tr><td>INV-2048</td><td>Nexora</td><td>$12,400</td><td><span class="status paid">Paid</span></td></tr><tr><td>INV-2049</td><td>Atlas Works</td><td>$8,620</td><td><span class="status pending">Pending</span></td></tr><tr><td>INV-2050</td><td>LumaWorks</td><td>$5,240</td><td><span class="status active">Due</span></td></tr></tbody></table></div></section>
+        <div class="dash-panel">
+          <h3>Invoices</h3>
+          <p>All invoices with payment status, amounts, and due dates.</p>
+          <div class="table-wrap">
+            <table class="data-table">
+              <thead><tr><th>Invoice</th><th>Customer</th><th>Amount</th><th>Status</th></tr></thead>
+              <tbody>
+                <tr><td>INV-101</td><td>Acme Corp</td><td>$4,200</td><td><span class="status paid">Paid</span></td></tr>
+                <tr><td>INV-102</td><td>Orion Ltd</td><td>$1,800</td><td><span class="status pending">Pending</span></td></tr>
+                <tr><td>INV-103</td><td>Zeta Industries</td><td>$950</td><td><span class="status risk">Overdue</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
       </section>
       <section class="tab-panel" id="projects">
-        <section class="dash-cards"><article class="dash-card"><span>Active Projects</span><strong>42</strong></article><article class="dash-card"><span>On Track</span><strong>29</strong></article><article class="dash-card"><span>At Risk</span><strong>8</strong></article><article class="dash-card"><span>Completed</span><strong>5</strong></article></section>
-        <section class="dash-panel"><h3>Projects</h3><p>Monitor active project timelines, budgets, and progress while staying on the dashboard.</p></section>
-        <section class="dash-panel" style="margin-top:18px"><h3>Recent Projects</h3><div class="table-wrap"><table class="data-table"><thead><tr><th>Project</th><th>Customer</th><th>Deadline</th><th>Status</th></tr></thead><tbody><tr><td>CRM onboarding</td><td>Nexora</td><td>Jul 28</td><td><span class="status active">Active</span></td></tr><tr><td>ERP inventory</td><td>Atlas Works</td><td>Aug 15</td><td><span class="status pending">Pending</span></td></tr><tr><td>Analytics setup</td><td>LumaWorks</td><td>Sep 03</td><td><span class="status paid">Complete</span></td></tr></tbody></table></div></section>
+        <div class="dash-panel">
+          <h3>Projects</h3>
+          <p>Manage your ongoing and completed projects.</p>
+          <div class="table-wrap">
+            <table class="data-table">
+              <thead><tr><th>Project</th><th>Deadline</th><th>Progress</th><th>Status</th></tr></thead>
+              <tbody>
+                <tr><td>CRM Integration</td><td>Jul 30</td><td>75%</td><td><span class="status active">Active</span></td></tr>
+                <tr><td>ERP Migration</td><td>Aug 20</td><td>40%</td><td><span class="status pending">Pending</span></td></tr>
+                <tr><td>Data Analytics</td><td>Sep 05</td><td>100%</td><td><span class="status paid">Complete</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
       </section>
       <section class="tab-panel" id="analytics">
-        <section class="dash-cards"><article class="dash-card"><span>Opens</span><strong>8,420</strong></article><article class="dash-card"><span>Conversions</span><strong>2,130</strong></article><article class="dash-card"><span>Growth</span><strong>18%</strong></article><article class="dash-card"><span>Top Channel</span><strong>CRM</strong></article></section>
-        <section class="dash-panel"><h3>Analytics</h3><p>Explore analytics summaries and performance signals without navigating away.</p></section>
-        <section class="dash-layout"><div class="dash-panel"><h3>Performance Trend</h3><canvas id="analyticsChart"></canvas></div><div class="dash-panel"><h3>Sales Pipeline</h3><div class="pipeline-list"><div class="pipeline-step"><strong>Prospects</strong><span>62%</span></div><div class="pipeline-step"><strong>Qualified</strong><span>45%</span></div><div class="pipeline-step"><strong>Proposal</strong><span>32%</span></div><div class="pipeline-step"><strong>Negotiation</strong><span>18%</span></div><div class="pipeline-step"><strong>Closed</strong><span>8%</span></div></div></div></section>
-        <section class="dash-panel" style="margin-top:18px"><h3>Latest Insights</h3><div class="table-wrap"><table class="data-table"><thead><tr><th>Metric</th><th>Value</th><th>Change</th><th>Focus</th></tr></thead><tbody><tr><td>Lead Response</td><td>3.2 hrs</td><td><span class="status active">-12%</span></td><td>Faster follow-up</td></tr><tr><td>Deal Velocity</td><td>24 days</td><td><span class="status paid">+8%</span></td><td>Accelerate pipeline</td></tr><tr><td>Churn</td><td>1.8%</td><td><span class="status pending">+0.4%</span></td><td>Retention</td></tr></tbody></table></div></section>
+        <div class="dash-panel">
+          <h3>Analytics</h3>
+          <p>Track your KPIs, feature usage, and trends over time.</p>
+          <div class="pipeline-list">
+            <div class="pipeline-step"><strong>Active Users</strong><span>486</span></div>
+            <div class="pipeline-step"><strong>Avg Session</strong><span>18 min</span></div>
+            <div class="pipeline-step"><strong>Conversion</strong><span>12.5%</span></div>
+            <div class="pipeline-step"><strong>Churn Rate</strong><span>3.2%</span></div>
+          </div>
+        </div>
       </section>
       <section class="tab-panel" id="reports">
-        <section class="dash-cards"><article class="dash-card"><span>Reports Generated</span><strong>128</strong></article><article class="dash-card"><span>Exports</span><strong>74</strong></article><article class="dash-card"><span>Pending Review</span><strong>9</strong></article><article class="dash-card"><span>Top Report</span><strong>Revenue</strong></article></section>
-        <section class="dash-panel"><h3>Reports</h3><p>Review report snapshots and export options directly in the dashboard environment.</p></section>
-        <section class="dash-panel" style="margin-top:18px"><h3>Recent Reports</h3><div class="table-wrap"><table class="data-table"><thead><tr><th>Report</th><th>Type</th><th>Date</th><th>Status</th></tr></thead><tbody><tr><td>Monthly Revenue</td><td>Finance</td><td>Jun 30</td><td><span class="status paid">Complete</span></td></tr><tr><td>Project Health</td><td>Operations</td><td>Jun 28</td><td><span class="status active">Active</span></td></tr><tr><td>Customer Pulse</td><td>CRM</td><td>Jun 25</td><td><span class="status pending">Ready</span></td></tr></tbody></table></div></section>
+        <div class="dash-panel">
+          <h3>Reports</h3>
+          <p>Generate and download reports for customers, invoices, and projects.</p>
+          <div class="pipeline-list">
+            <div class="pipeline-step"><strong>Monthly</strong><span>6</span></div>
+            <div class="pipeline-step"><strong>Quarterly</strong><span>2</span></div>
+            <div class="pipeline-step"><strong>Annual</strong><span>1</span></div>
+          </div>
+        </div>
       </section>
       <section class="tab-panel" id="notifications">
-        <section class="dash-cards"><article class="dash-card"><span>Unread</span><strong>14</strong></article><article class="dash-card"><span>Alerts</span><strong>6</strong></article><article class="dash-card"><span>Tasks</span><strong>5</strong></article><article class="dash-card"><span>Messages</span><strong>3</strong></article></section>
-        <section class="dash-panel"><h3>Notifications</h3><p>Catch the latest alerts and system messages on the dashboard page.</p></section>
-        <section class="dash-panel" style="margin-top:18px"><h3>Recent Alerts</h3><div class="table-wrap"><table class="data-table"><thead><tr><th>Notification</th><th>Type</th><th>Time</th><th>Status</th></tr></thead><tbody><tr><td>New lead assigned</td><td>CRM</td><td>10 min ago</td><td><span class="status active">New</span></td></tr><tr><td>Invoice overdue</td><td>Billing</td><td>1 hr ago</td><td><span class="status pending">Action</span></td></tr><tr><td>Project milestone</td><td>Project</td><td>3 hrs ago</td><td><span class="status paid">Completed</span></td></tr></tbody></table></div></section>
+        <div class="dash-panel">
+          <h3>Notifications</h3>
+          <p>Recent alerts and updates from your CRM and ERP modules.</p>
+          <div class="data-table-wrap">
+            <table class="data-table">
+              <thead><tr><th>Time</th><th>Message</th><th>Type</th></tr></thead>
+              <tbody>
+                <tr><td>10 min ago</td><td>New lead assigned from CRM pipeline</td><td><span class="status active">Info</span></td></tr>
+                <tr><td>1 hour ago</td><td>Invoice INV-102 is overdue</td><td><span class="status risk">Alert</span></td></tr>
+                <tr><td>3 hours ago</td><td>Project ERP Migration updated</td><td><span class="status pending">Update</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
       </section>
       <section class="tab-panel" id="calendar">
-        <section class="dash-cards"><article class="dash-card"><span>Events Today</span><strong>4</strong></article><article class="dash-card"><span>Upcoming</span><strong>11</strong></article><article class="dash-card"><span>Deadlines</span><strong>7</strong></article><article class="dash-card"><span>Meetings</span><strong>5</strong></article></section>
-        <section class="dash-panel"><h3>Calendar</h3><p>Calendar view and task due dates appear here for planned work.</p></section>
-        <section class="dash-panel" style="margin-top:18px"><h3>Today’s Schedule</h3><div class="table-wrap"><table class="data-table"><thead><tr><th>Event</th><th>Time</th><th>Owner</th><th>Status</th></tr></thead><tbody><tr><td>Client kickoff</td><td>09:00 AM</td><td>Maria</td><td><span class="status active">Scheduled</span></td></tr><tr><td>Invoice review</td><td>11:30 AM</td><td>Sam</td><td><span class="status pending">Pending</span></td></tr><tr><td>Project sync</td><td>02:00 PM</td><td>Jules</td><td><span class="status paid">Confirmed</span></td></tr></tbody></table></div></section>
+        <div class="dash-panel">
+          <h3>Calendar</h3>
+          <p>Upcoming meetings, deadlines, and events.</p>
+          <div class="pipeline-list">
+            <div class="pipeline-step"><strong>Meetings</strong><span>4</span></div>
+            <div class="pipeline-step"><strong>Deadlines</strong><span>7</span></div>
+            <div class="pipeline-step"><strong>Events</strong><span>2</span></div>
+          </div>
+        </div>
       </section>
-      <section class="tab-panel" id="settings"><div class="dash-panel"><h3>Settings</h3><p>Update preferences, account settings, and dashboard options right here.</p></div></section>
-      <section class="tab-panel" id="profile"><div class="dash-panel"><h3>Profile</h3><p>View and edit your profile details using the on-page dashboard panel.</p></div></section>
-      <section class="tab-panel" id="logout"><div class="dash-panel"><h3>Logout</h3><p>This is a placeholder. Implement actual logout logic in your backend or redirect flow.</p></div></section>
+      <section class="tab-panel" id="settings">
+        <div class="dash-panel">
+          <h3>Settings</h3>
+          <form class="settings-form">
+            <div class="form-group">
+              <label>Email Notifications</label>
+              <select><option value="all">All notifications</option><option value="important">Important only</option><option value="none">None</option></select>
+            </div>
+            <div class="form-group">
+              <label>Language</label>
+              <select><option value="en">English</option><option value="hi">Hindi</option><option value="es">Spanish</option></select>
+            </div>
+            <div class="form-group">
+              <label>Time Zone</label>
+              <select><option value="IST">India Standard Time (IST)</option><option value="UTC">UTC</option><option value="EST">Eastern (EST)</option></select>
+            </div>
+            <div class="form-group">
+              <label><input type="checkbox" checked> Enable dark mode by default</label>
+            </div>
+            <button class="btn btn-primary" type="submit">Save Settings</button>
+          </form>
+        </div>
+      </section>
+      <section class="tab-panel" id="profile">
+        <div class="dash-panel">
+          <h3>Profile</h3>
+          <form class="settings-form">
+            <div class="form-group">
+              <label>Full Name</label>
+              <input type="text" value="John Doe" maxlength="16" pattern="[A-Za-z ]+">
+            </div>
+            <div class="form-group">
+              <label>Email</label>
+              <input type="text" value="john@company.com">
+            </div>
+            <div class="form-group">
+              <label>Phone</label>
+              <input type="text" value="9876543210" maxlength="10" pattern="[0-9]{10}">
+            </div>
+            <div class="form-group">
+              <label>Company</label>
+              <input type="text" value="Stackly Inc." pattern="[A-Za-z ]+">
+            </div>
+            <button class="btn btn-primary" type="submit">Update Profile</button>
+          </form>
+        </div>
+      </section>
     </main>
   </div>
-  <script src="js/loader.js" defer></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
   <script src="js/dashboard.js" defer></script>
-  <script src="js/pan-control.js" defer></script>
-  <script src="js/parallax.js" defer></script>
 </body>
 </html>

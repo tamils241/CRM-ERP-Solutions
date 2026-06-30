@@ -120,6 +120,12 @@ document.addEventListener("DOMContentLoaded", () => {
         showToast("Please complete the required fields.", "error");
         return;
       }
+      const nameField = $('input[pattern]', form);
+      if (nameField && !new RegExp(nameField.pattern).test(nameField.value)) {
+        nameField.focus();
+        showToast("Full name: only letters and spaces, max 16 characters.", "error");
+        return;
+      }
       const password = $('[name="password"]', form);
       const confirm = $('[name="confirmPassword"]', form);
       if (password && confirm && password.value !== confirm.value) {
@@ -127,8 +133,16 @@ document.addEventListener("DOMContentLoaded", () => {
         showToast("Passwords do not match.", "error");
         return;
       }
+      const role = form.querySelector('select')?.value;
       form.reset();
       showToast(form.dataset.success || "Submitted successfully.");
+      if (form.querySelector('.btn[type="submit"]')?.textContent.trim() === 'Create Account') {
+        setTimeout(() => { window.location.href = 'login.html'; }, 1500);
+      }
+      if (form.querySelector('.btn[type="submit"]')?.textContent.trim() === 'Login') {
+        const target = role === 'admin' ? 'admin-dashboard.html' : 'user-dashboard.html';
+        setTimeout(() => { window.location.href = target; }, 1500);
+      }
     });
   });
 
@@ -136,6 +150,20 @@ document.addEventListener("DOMContentLoaded", () => {
   const savedTheme = safeStorage.get("stackly-theme");
   if (savedTheme !== "light") {
     document.body.classList.add(themeClass);
+  }
+
+  var rememberCb = document.querySelector('.form-grid input[type="checkbox"]');
+  if (rememberCb) {
+    setTimeout(function() { rememberCb.checked = false; }, 0);
+    var label = rememberCb.parentElement;
+    if (label) {
+      label.addEventListener('click', function(e) {
+        if (e.target !== rememberCb) {
+          e.preventDefault();
+          rememberCb.checked = !rememberCb.checked;
+        }
+      });
+    }
   }
 
   $$(".theme-toggle").forEach((toggle) => {
@@ -166,4 +194,43 @@ document.addEventListener("DOMContentLoaded", () => {
     setTimeout(() => toast.classList.remove("show"), 2800);
   }
   window.StacklyToast = showToast;
+
+  // 3D tilt for all grid cards
+  const tiltCards = $$('.feature-card, .content-card, .testimonial-card, .price-card');
+  tiltCards.forEach(card => {
+    if (card.closest('.testimonial-track')) return;
+    if (card.querySelector('.card-shine')) return;
+
+    card.dataset.tilt = 'active';
+
+    const shine = document.createElement('div');
+    shine.className = 'card-shine';
+    shine.style.cssText = 'position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:linear-gradient(to right,rgba(255,255,255,0)0%,rgba(255,255,255,0.1)50%,rgba(255,255,255,0)100%);transform:rotate(30deg);opacity:0;pointer-events:none;transition:opacity 0.3s ease;z-index:1;';
+    card.appendChild(shine);
+
+    const isPremium = card.classList.contains('premium-card') || card.classList.contains('premium');
+    const baseScale = isPremium ? 1.04 : 1;
+
+    card.addEventListener('mouseenter', () => { card.style.transition = 'transform 0.1s ease-out'; });
+    card.addEventListener('mousemove', e => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const cx = rect.width / 2;
+      const cy = rect.height / 2;
+      card.style.transition = 'none';
+      card.style.transform = `perspective(1200px) rotateX(${(cy - y) / 12}deg) rotateY(${(x - cx) / 12}deg) scale3d(${baseScale + 0.04}, ${baseScale + 0.04}, ${baseScale + 0.04})`;
+      shine.style.opacity = '1';
+      shine.style.transform = `rotate(30deg) translateX(${x / 8}%)`;
+    });
+    card.addEventListener('mouseleave', () => {
+      card.style.transition = 'transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)';
+      card.style.transform = isPremium ? 'perspective(1200px) scale3d(1.04, 1.04, 1.04)' : 'perspective(1200px) scale3d(1, 1, 1)';
+      shine.style.opacity = '0';
+    });
+    card.addEventListener('click', function() {
+      this.classList.add('clicked');
+      setTimeout(() => this.classList.remove('clicked'), 500);
+    });
+  });
 });

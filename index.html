@@ -12,6 +12,61 @@
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/animation.css">
   <link rel="stylesheet" href="css/responsive.css">
+  <style>
+    .grid.pricing-3d { perspective: 1200px; }
+    .price-card {
+      position: relative; overflow: hidden; transform-style: preserve-3d;
+      will-change: transform; transition: box-shadow 0.4s ease, border-color 0.4s ease;
+      background: rgba(255, 255, 255, 0.88); backdrop-filter: blur(12px);
+      border: 1px solid var(--line);
+    }
+    body.dark-mode .price-card {
+      background: rgba(15, 23, 42, 0.88); border-color: rgba(148, 163, 184, 0.2);
+    }
+    .price-card:hover {
+      border-color: #D4AF37; box-shadow: 0 20px 50px rgba(212, 175, 55, 0.2);
+    }
+    .price-card.premium-card {
+      background: rgba(255, 255, 255, 0.94); border: 2px solid #D4AF37;
+      transform: scale(1.04); z-index: 2;
+    }
+    body.dark-mode .price-card.premium-card {
+      background: rgba(15, 23, 42, 0.92); border-color: #D4AF37;
+    }
+    .price-card.premium-card:hover {
+      box-shadow: 0 25px 60px rgba(212, 175, 55, 0.3);
+    }
+
+    .price-card::before {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(45deg, transparent 50%, rgba(212,175,55,0.06) 100%);
+      z-index: 0; pointer-events: none;
+    }
+    .price-card > * { position: relative; z-index: 1; }
+    .price-card.premium-card .badge { background: #D4AF37; color: #1E1E2F; }
+    .price-card.premium-card h3 { color: #D4AF37; }
+    .price-card.premium-card .price { color: #D4AF37; }
+    .price-card.premium-card .btn-primary {
+      background: #D4AF37; color: #1E1E2F;
+      box-shadow: 0 10px 24px rgba(212, 175, 55, 0.3);
+    }
+    .price-card.premium-card .btn-primary:hover {
+      background: #C19B2B; box-shadow: 0 14px 32px rgba(212, 175, 55, 0.4);
+    }
+    .price-card.clicked { transform: scale(0.97) !important; transition: transform 0.15s ease; }
+    .price-card.premium-card.clicked { transform: scale(0.97) !important; }
+    .price-card.selected { border-color: #D4AF37 !important; box-shadow: 0 0 25px rgba(212, 175, 55, 0.5); }
+    .price-card.pulse { animation: pulseGlow 0.5s ease-out; }
+    @keyframes pulseGlow {
+      0% { box-shadow: 0 0 0 0 rgba(212,175,55,0.7); }
+      70% { box-shadow: 0 0 0 18px rgba(212,175,55,0); }
+      100% { box-shadow: 0 0 0 0 rgba(212,175,55,0); }
+    }
+    .popular-tag-placeholder { display: none; }
+    @media (max-width: 768px) {
+      .price-card.premium-card { transform: none !important; order: -1; }
+    }
+  </style>
 </head>
 <body>
   <div id="page-loader" aria-hidden="true">
@@ -88,7 +143,7 @@
   <script src="js/loader.js" defer></script>
       <div class="container">
         <div class="section-head reveal text-reveal">
-          <span class="eyebrow">CRM features</span>
+          <span class="eyebrow" style="margin:32px">CRM features</span>
           <h2>Sales, support, <span class="gradient-text">automation</span>, and customer intelligence</h2>
           <p>Give every team a complete view of customers, deals, campaigns, conversations, tasks, and performance.</p>
         </div>
@@ -158,18 +213,17 @@
         </div>
       </div>
     </section>
-
+<!-- pricing -->
     <section>
       <div class="container">
         <div class="section-head reveal">
           <span class="eyebrow">Pricing</span>
           <h2>Flexible plans for growing teams</h2>
-          <div class="pricing-toggle"><button class="price-monthly active">Monthly</button><button class="price-yearly">Yearly</button></div>
         </div>
-        <div class="grid grid-3">
-          <article class="price-card reveal"><h3>Starter</h3><div class="price" data-monthly="$49" data-yearly="$470">$49</div><p>per user</p><ul class="check-list"><li><i class="fa-solid fa-check"></i>CRM pipeline</li><li><i class="fa-solid fa-check"></i>Invoices</li><li><i class="fa-solid fa-check"></i>Email support</li></ul><a class="btn btn-light" href="register.html">Choose Starter</a></article>
-          <article class="price-card reveal"><span class="badge">Recommended</span><h3>Professional</h3><div class="price" data-monthly="$99" data-yearly="$950">$99</div><p>per user</p><ul class="check-list"><li><i class="fa-solid fa-check"></i>CRM and ERP</li><li><i class="fa-solid fa-check"></i>Automation</li><li><i class="fa-solid fa-check"></i>Priority support</li></ul><a class="btn btn-primary" href="register.html">Choose Pro</a></article>
-          <article class="price-card reveal"><h3>Enterprise</h3><div class="price" data-monthly="Custom" data-yearly="Custom">Custom</div><p>annual contract</p><ul class="check-list"><li><i class="fa-solid fa-check"></i>Dedicated cloud</li><li><i class="fa-solid fa-check"></i>Advanced roles</li><li><i class="fa-solid fa-check"></i>Solution architect</li></ul><a class="btn btn-light" href="contact.html">Contact Sales</a></article>
+        <div class="grid grid-3 pricing-3d">
+          <article class="price-card reveal"><div class="popular-tag-placeholder"></div><h3>Starter</h3><div class="price" data-monthly="$49" data-yearly="$470">$49</div><p>per user</p><ul class="check-list"><li><i class="fa-solid fa-check"></i>CRM pipeline</li><li><i class="fa-solid fa-check"></i>Invoices</li><li><i class="fa-solid fa-check"></i>Email support</li></ul><a class="btn btn-light" href="register.html">Choose Starter</a></article>
+          <article class="price-card reveal premium-card"><span class="badge">Recommended</span><h3>Professional</h3><div class="price" data-monthly="$99" data-yearly="$950">$99</div><p>per user</p><ul class="check-list"><li><i class="fa-solid fa-check"></i>CRM and ERP</li><li><i class="fa-solid fa-check"></i>Automation</li><li><i class="fa-solid fa-check"></i>Priority support</li></ul><a class="btn btn-primary" href="register.html">Choose Pro</a></article>
+          <article class="price-card reveal"><div class="popular-tag-placeholder"></div><h3>Enterprise</h3><div class="price" data-monthly="Custom" data-yearly="Custom">Custom</div><p>annual contract</p><ul class="check-list"><li><i class="fa-solid fa-check"></i>Dedicated cloud</li><li><i class="fa-solid fa-check"></i>Advanced roles</li><li><i class="fa-solid fa-check"></i>Solution architect</li></ul><a class="btn btn-light" href="contact.html">Contact Sales</a></article>
         </div>
       </div>
     </section>
@@ -234,8 +288,24 @@
   <footer class="site-footer">
     <div class="container footer-grid">
       <div class="footer-brand"><a class="logo" href="index.html"><span class="logo-mark"><i class="fa-solid fa-layer-group"></i></span>Stackly</a><p>Premium CRM and ERP software for companies that want sharper operations, cleaner data, and faster growth.</p></div>
-      <div><h3>Quick Links</h3><div class="footer-links"><a href="about.html">About</a><a href="pricing.html">Pricing</a><a href="blog.html">Blog</a><a href="career.html">Career</a></div></div>
-      <div><h3>Solutions</h3><div class="footer-links"><a href="crm.html">CRM</a><a href="erp.html">ERP</a><a href="services.html">Services</a><a href="industries.html">Industries</a></div></div>
+      <div><h3>Quick Links</h3>
+        <div class="footer-links">
+          <a href="about.html">About</a>
+          <a href="pricing.html">Pricing</a>
+          <a href="blog.html">Blog</a>
+          <a href="testimonials.html">Testimonials</a>
+          <a href="career.html">Career</a>
+        </div>
+      </div>
+      <div><h3>Solutions</h3>
+        <div class="footer-links">
+          <a href="crm.html">CRM</a>
+          <a href="erp.html">ERP</a>
+          <a href="services.html">Services</a>
+          <a href="industries.html">Industries</a>
+          <a href="portfolios.html">Portfolios</a>
+        </div>
+      </div>
       <div><h3>Contact</h3><div class="footer-links"><a href="tel:+919876543210"><i class="fa-solid fa-phone"></i> +91 98765 43210</a><a href="mailto:hello@stackly.example"><i class="fa-solid fa-envelope"></i> hello@stackly.example</a><a href="contact.html"><i class="fa-solid fa-location-dot"></i> Bengaluru, India</a></div></div>
       <div><h3>Newsletter</h3><form class="newsletter validate-form" data-success="You are subscribed."><input type="email" placeholder="Email address" required><button class="btn btn-primary" type="submit"><i class="fa-solid fa-paper-plane"></i></button></form><div class="social-links"><a href="404.html" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a><a href="404.html" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a><a href="404.html" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a><a href="404.html" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a></div></div>
     </div>
@@ -252,5 +322,40 @@
   <script src="js/animation.js"></script>
   <script src="js/counter.js"></script>
   <script src="js/chart.js"></script>
+  <script>
+    (function() {
+      // Price count-up
+      var prices = document.querySelectorAll('.price[data-monthly]');
+      prices.forEach(function(price) {
+        var txt = price.textContent.replace(/[^0-9]/g, '');
+        var val = parseInt(txt);
+        if (!isNaN(val)) {
+          (function(el, end) {
+            var startTs = null;
+            function step(ts) {
+              if (!startTs) startTs = ts;
+              var p = Math.min((ts - startTs) / 1500, 1);
+              el.textContent = '$' + Math.floor(p * end);
+              if (p < 1) window.requestAnimationFrame(step);
+            }
+            window.requestAnimationFrame(step);
+          })(price, val);
+        }
+      });
+      // Select pulse
+      var cards = document.querySelectorAll('.price-card');
+      cards.forEach(function(card) {
+        var btn = card.querySelector('.btn');
+        if (!btn) return;
+        btn.addEventListener('click', function(e) {
+          e.stopPropagation();
+          cards.forEach(function(c) { c.classList.remove('selected'); });
+          card.classList.add('selected');
+          card.classList.add('pulse');
+          setTimeout(function() { card.classList.remove('pulse'); }, 500);
+        });
+      });
+    })();
+  </script>
 </body>
 </html>
