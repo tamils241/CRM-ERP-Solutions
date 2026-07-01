@@ -1004,6 +1004,26 @@ section + section { padding-top: 48px; }
 .auth-panel .form-grid { text-align: left; }
 .auth-panel .form-grid { margin-bottom: 16px; }
 .auth-panel .form-grid label { cursor: pointer; display: inline-flex; align-items: center; gap: 6px; }
+.remember-row {
+  margin-bottom: 6px !important;
+}
+.field-error {
+  display: none;
+  width: min(100%, 360px);
+  margin: 0 0 16px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  color: #b91c1c;
+  background: rgba(220, 38, 38, 0.1);
+  border: 1px solid rgba(220, 38, 38, 0.24);
+  font-size: 0.88rem;
+  font-weight: 700;
+  line-height: 1.45;
+  text-align: left;
+}
+.field-error.show {
+  display: block;
+}
 
 .site-footer {
   padding: 70px 0 26px;
@@ -1138,16 +1158,27 @@ section + section { padding-top: 48px; }
   bottom: 20px;
   z-index: 1300;
   padding: 14px 18px;
+  width: min(360px, calc(100vw - 32px));
   color: var(--white);
   background: var(--dark);
   border-radius: 8px;
   box-shadow: var(--shadow);
+  line-height: 1.45;
+  text-align: center;
   opacity: 0;
   transform: translateY(15px);
   pointer-events: none;
   transition: all 0.25s ease;
 }
 .toast.show { opacity: 1; transform: translateY(0); }
+.toast.error {
+  background: #dc2626;
+  box-shadow: 0 18px 34px rgba(220, 38, 38, 0.28);
+}
+.toast.success {
+  background: #16a34a;
+  box-shadow: 0 18px 34px rgba(22, 163, 74, 0.24);
+}
 
 .back-to-top {
   position: fixed;

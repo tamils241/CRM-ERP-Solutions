@@ -111,12 +111,22 @@ document.addEventListener("DOMContentLoaded", () => {
   $$(".validate-form").forEach((form) => {
     const password = $('[name="password"]', form);
     const confirm = $('[name="confirmPassword"]', form);
+    const remember = $('[name="rememberMe"]', form);
+    const email = $('[name="email"]', form);
     const validatePasswordMatch = () => {
       if (!password || !confirm) return true;
       const matches = password.value === confirm.value;
       confirm.setCustomValidity(matches ? "" : "Passwords do not match.");
       return matches;
     };
+
+    if (remember && email) {
+      const savedEmail = safeStorage.get("stackly-login-email");
+      if (savedEmail) {
+        email.value = savedEmail;
+        remember.checked = true;
+      }
+    }
 
     if (password && confirm) {
       password.addEventListener("input", validatePasswordMatch);
@@ -125,7 +135,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
     form.addEventListener("submit", (event) => {
       event.preventDefault();
-      validatePasswordMatch();
+      if (!validatePasswordMatch()) {
+        confirm.focus();
+        confirm.reportValidity();
+        showToast("Passwords do not match.", "error");
+        return;
+      }
       if (!form.checkValidity()) {
         form.reportValidity();
         showToast("Please fix the highlighted fields.", "error");
@@ -146,18 +161,24 @@ document.addEventListener("DOMContentLoaded", () => {
         showToast("Full name: only letters and spaces, max 16 characters.", "error");
         return;
       }
-      if (!validatePasswordMatch()) {
-        confirm.focus();
-        showToast("Passwords do not match.", "error");
+      const submitText = form.querySelector('.btn[type="submit"]')?.textContent.trim();
+      if (submitText === 'Login' && remember && !remember.checked) {
+        remember.focus();
+        showToast("Please select Remember me before login.", "error");
         return;
       }
+      if (remember && email) {
+        safeStorage.set("stackly-login-email", remember.checked ? email.value.trim() : "");
+      }
       const role = form.querySelector('select')?.value;
-      form.reset();
+      if (submitText !== 'Login') {
+        form.reset();
+      }
       showToast(form.dataset.success || "Submitted successfully.");
-      if (form.querySelector('.btn[type="submit"]')?.textContent.trim() === 'Create Account') {
+      if (submitText === 'Create Account') {
         setTimeout(() => { window.location.href = 'login.html'; }, 1500);
       }
-      if (form.querySelector('.btn[type="submit"]')?.textContent.trim() === 'Login') {
+      if (submitText === 'Login') {
         const target = role === 'admin' ? 'admin-dashboard.html' : 'user-dashboard.html';
         setTimeout(() => { window.location.href = target; }, 1500);
       }
@@ -168,20 +189,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const savedTheme = safeStorage.get("stackly-theme");
   if (savedTheme !== "light") {
     document.body.classList.add(themeClass);
-  }
-
-  var rememberCb = document.querySelector('.form-grid input[type="checkbox"]');
-  if (rememberCb) {
-    setTimeout(function() { rememberCb.checked = false; }, 0);
-    var label = rememberCb.parentElement;
-    if (label) {
-      label.addEventListener('click', function(e) {
-        if (e.target !== rememberCb) {
-          e.preventDefault();
-          rememberCb.checked = !rememberCb.checked;
-        }
-      });
-    }
   }
 
   $$(".theme-toggle").forEach((toggle) => {
@@ -205,9 +212,15 @@ document.addEventListener("DOMContentLoaded", () => {
     toggle.setAttribute("title", isDark ? "Switch to light theme" : "Switch to dark theme");
   }
 
-  function showToast(message) {
+  function showToast(message, type) {
     if (!toast) return;
     toast.textContent = message;
+    toast.classList.remove("error", "success");
+    if (type) {
+      toast.classList.add(type);
+    } else {
+      toast.classList.add("success");
+    }
     toast.classList.add("show");
     setTimeout(() => toast.classList.remove("show"), 2800);
   }
