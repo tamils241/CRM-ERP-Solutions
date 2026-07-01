@@ -37,6 +37,31 @@
         }
       });
     });
+
+    var sidebarLogo = document.querySelector('.sidebar .side-logo');
+    if (sidebarLogo) {
+      sidebarLogo.addEventListener('click', function(e) {
+        var sidebar = document.querySelector('.sidebar');
+        if (window.matchMedia('(max-width: 980px)').matches && sidebar && sidebar.classList.contains('open')) {
+          e.preventDefault();
+          sidebar.classList.remove('open');
+          var backdrop = document.getElementById('sidebarBackdrop');
+          if (backdrop) backdrop.remove();
+        }
+      });
+    }
+
+    var sidebarClose = document.querySelector('.sidebar-close');
+    if (sidebarClose) {
+      sidebarClose.addEventListener('click', function() {
+        var sidebar = document.querySelector('.sidebar');
+        if (sidebar) {
+          sidebar.classList.remove('open');
+          var backdrop = document.getElementById('sidebarBackdrop');
+          if (backdrop) backdrop.remove();
+        }
+      });
+    }
     var navLinks = document.querySelectorAll(".side-nav a[data-target]");
     navLinks.forEach(function(link) {
       link.addEventListener("click", function(e) {
@@ -55,26 +80,46 @@
         if (backdrop) backdrop.remove();
       });
     });
-    var themeBtn = document.querySelector(".theme-toggle");
-    if (themeBtn) {
-      themeBtn.addEventListener("click", function() {
-        document.body.classList.toggle("dark-dash");
-        var icon = themeBtn.querySelector("i");
-        if (icon) {
-          if (icon.classList.contains("fa-sun")) {
-            icon.classList.remove("fa-sun");
-            icon.classList.add("fa-moon");
-          } else {
-            icon.classList.remove("fa-moon");
-            icon.classList.add("fa-sun");
-          }
-        }
+    function setDashTheme(isDark) {
+      document.body.classList.toggle("dark-dash", isDark);
+      try { localStorage.setItem("stackly-theme", isDark ? "dark" : "light"); } catch(e) {}
+      document.querySelectorAll(".theme-toggle").forEach(function(btn) {
+        var icon = btn.querySelector("i");
+        if (icon) icon.className = isDark ? "fa-solid fa-sun" : "fa-solid fa-moon";
+        btn.setAttribute("aria-label", isDark ? "Switch to light" : "Switch to dark");
+      });
+      var dmCheckbox = document.querySelector('#settings input[type="checkbox"]');
+      if (dmCheckbox) dmCheckbox.checked = isDark;
+      redrawCharts();
+    }
+    var saved;
+    try { saved = localStorage.getItem("stackly-theme"); } catch(e) {}
+    if (saved === "dark" || (saved === null && window.matchMedia("(prefers-color-scheme:dark)").matches)) {
+      setDashTheme(true);
+    }
+    document.querySelectorAll(".theme-toggle").forEach(function(btn) {
+      btn.addEventListener("click", function() {
+        setDashTheme(!document.body.classList.contains("dark-dash"));
+      });
+    });
+    var dmCheckbox = document.querySelector('#settings input[type="checkbox"]');
+    if (dmCheckbox) {
+      dmCheckbox.addEventListener("change", function() {
+        setDashTheme(dmCheckbox.checked);
       });
     }
-    var revenueCanvas = document.getElementById("revenueChart");
-    var moduleCanvas = document.getElementById("moduleChart");
-    if (revenueCanvas) drawRevenueChart(revenueCanvas);
-    if (moduleCanvas) drawModuleChart(moduleCanvas);
+    function getChartColors() {
+      var isDark = document.body.classList.contains("dark-dash");
+      return {
+        primary: isDark ? "#fbbf24" : "#e88844",
+        secondary: isDark ? "#f59e0b" : "#d97706",
+        text: isDark ? "#94a3b8" : "#64748b",
+        grid: isDark ? "rgba(148,163,184,0.12)" : "rgba(148, 163, 184, 0.2)",
+        fill: isDark ? "rgba(248,250,252,0.06)" : "rgba(232,136,68,0.1)"
+      };
+    }
+
+    var _revenueChart, _moduleChart;
 
     function prepCanvas(canvas, fallbackWidth, fallbackHeight) {
       var ctx = canvas.getContext("2d");
@@ -95,6 +140,7 @@
     function drawRevenueChart(canvas) {
       var chart = prepCanvas(canvas, 520, 260);
       if (!chart) return;
+      var cc = getChartColors();
       var ctx = chart.ctx;
       var width = chart.width;
       var height = chart.height;
@@ -105,7 +151,7 @@
       var chartH = height - pad.top - pad.bottom;
       var max = 340;
 
-      ctx.strokeStyle = "rgba(148, 163, 184, 0.2)";
+      ctx.strokeStyle = cc.grid;
       ctx.lineWidth = 1;
       for (var i = 0; i <= 4; i += 1) {
         var y = pad.top + chartH / 4 * i;
@@ -127,7 +173,7 @@
       points.forEach(function(point) { ctx.lineTo(point.x, point.y); });
       ctx.lineTo(points[points.length - 1].x, height - pad.bottom);
       ctx.closePath();
-      ctx.fillStyle = "rgba(212, 175, 55, 0.12)";
+      ctx.fillStyle = cc.fill;
       ctx.fill();
 
       ctx.beginPath();
@@ -135,11 +181,11 @@
         if (index === 0) ctx.moveTo(point.x, point.y);
         else ctx.lineTo(point.x, point.y);
       });
-      ctx.strokeStyle = "#D4AF37";
+      ctx.strokeStyle = cc.primary;
       ctx.lineWidth = 3;
       ctx.stroke();
 
-      ctx.fillStyle = "#94a3b8";
+      ctx.fillStyle = cc.text;
       ctx.font = "12px Inter, system-ui, sans-serif";
       ctx.textAlign = "center";
       labels.forEach(function(label, index) {
@@ -150,11 +196,12 @@
     function drawModuleChart(canvas) {
       var chart = prepCanvas(canvas, 320, 240);
       if (!chart) return;
+      var cc = getChartColors();
       var ctx = chart.ctx;
       var width = chart.width;
       var height = chart.height;
       var values = [35, 28, 22, 15];
-      var colors = ["#D4AF37", "#3B82F6", "#F59E0B", "#10B981"];
+      var colors = [cc.primary, "#3B82F6", "#F59E0B", "#10B981"];
       var labels = ["CRM", "ERP", "BI", "Projects"];
       var total = values.reduce(function(sum, value) { return sum + value; }, 0);
       var radius = Math.min(width, height) * 0.28;
@@ -179,13 +226,23 @@
         var y = cy - 42 + index * 28;
         ctx.fillStyle = colors[index];
         ctx.fillRect(width * 0.68, y - 9, 12, 12);
-        ctx.fillStyle = "#94a3b8";
+        ctx.fillStyle = cc.text;
         ctx.fillText(label + " " + values[index] + "%", width * 0.68 + 20, y + 1);
       });
     }
+
+    function redrawCharts() {
+      if (_revenueChart) drawRevenueChart(_revenueChart);
+      if (_moduleChart) drawModuleChart(_moduleChart);
+    }
+
+    _revenueChart = document.getElementById("revenueChart");
+    _moduleChart = document.getElementById("moduleChart");
+    if (_revenueChart) drawRevenueChart(_revenueChart);
+    if (_moduleChart) drawModuleChart(_moduleChart);
   });
   window.dashToast = function(message, type) {
-    var bg = type === "error" ? "#EF4444" : type === "success" ? "#10B981" : "#D4AF37";
+    var bg = type === "error" ? "#EF4444" : type === "success" ? "#10B981" : "#e88844";
     var toast = document.createElement("div");
     toast.textContent = message || "Done!";
     Object.assign(toast.style, { position: "fixed", top: "20px", right: "20px", background: bg, color: "#fff", padding: "12px 24px", borderRadius: "8px", zIndex: "10000", fontSize: "14px", fontFamily: "Inter, sans-serif", boxShadow: "0 4px 20px rgba(0,0,0,0.25)", opacity: "0", transition: "opacity 0.3s" });
@@ -228,7 +285,7 @@
           el.type = cfg.type || 'text';
           el.placeholder = cfg.placeholder;
         }
-        el.style.cssText = 'padding:8px 12px;border:1px solid #e2e8f0;border-radius:6px;font-size:12px;background:#fff;outline:none;min-width:120px';
+        el.className = 'filter-input';
         bar.appendChild(el);
       });
       var applyBtn = document.createElement('button');
