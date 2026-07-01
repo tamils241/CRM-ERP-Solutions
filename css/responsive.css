@@ -87,6 +87,9 @@
   .back-home {
     display: none !important;
   }
+  .dashboard-top .back-home {
+    display: inline-flex !important;
+  }
   .mobile-toggle::before {
     content: "";
     width: 5px;
