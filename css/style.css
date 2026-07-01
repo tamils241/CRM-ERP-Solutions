@@ -988,7 +988,10 @@ section + section { padding-top: 48px; }
   color: var(--white);
   background: linear-gradient(135deg, #0f172a, #c2410c);
 }
-.auth-art h1 { color: var(--white); }
+.auth-art h1 {
+  color: var(--white);
+  font-size: clamp(1.9rem, 3.2vw, 3rem);
+}
 .auth-panel {
   display: grid;
   align-content: center;
