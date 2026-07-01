@@ -2,25 +2,38 @@
   document.addEventListener("DOMContentLoaded", function() {
     document.body.classList.add("loaded");
     var toggles = document.querySelectorAll(".sidebar-toggle");
+    var backdrop = document.getElementById("sidebarBackdrop");
+
+    function toggleSidebarBackdrop(sidebar) {
+      var existingBackdrop = document.getElementById("sidebarBackdrop");
+      if (sidebar.classList.contains("open")) {
+        if (!existingBackdrop) {
+          existingBackdrop = document.createElement("div");
+          existingBackdrop.id = "sidebarBackdrop";
+          existingBackdrop.style.cssText = "position:fixed;inset:0;z-index:999;background:rgba(0,0,0,0.4);transition:opacity 0.3s;opacity:0";
+          document.body.appendChild(existingBackdrop);
+          requestAnimationFrame(function() { existingBackdrop.style.opacity = "1"; });
+          existingBackdrop.addEventListener("click", function() {
+            sidebar.classList.remove("open");
+            existingBackdrop.remove();
+          });
+        }
+      } else if (existingBackdrop) {
+        existingBackdrop.remove();
+      }
+    }
+
     toggles.forEach(function(t) {
       t.addEventListener("click", function() {
         var sidebar = document.querySelector(".sidebar");
-        sidebar.classList.toggle("collapsed");
-        var backdrop = document.getElementById("sidebarBackdrop");
-        if (sidebar.classList.contains("collapsed")) {
-          if (!backdrop) {
-            backdrop = document.createElement("div");
-            backdrop.id = "sidebarBackdrop";
-            backdrop.style.cssText = "position:fixed;inset:0;z-index:999;background:rgba(0,0,0,0.4);transition:opacity 0.3s;opacity:0";
-            document.body.appendChild(backdrop);
-            requestAnimationFrame(function() { backdrop.style.opacity = "1"; });
-            backdrop.addEventListener("click", function() {
-              sidebar.classList.remove("collapsed");
-              backdrop.remove();
-            });
-          }
+        if (!sidebar) return;
+        var isMobile = window.matchMedia("(max-width: 980px)").matches;
+        if (isMobile) {
+          sidebar.classList.toggle("open");
+          toggleSidebarBackdrop(sidebar);
         } else {
-          if (backdrop) backdrop.remove();
+          sidebar.classList.remove("open");
+          if (document.getElementById("sidebarBackdrop")) document.getElementById("sidebarBackdrop").remove();
         }
       });
     });
@@ -37,7 +50,7 @@
         var panel = document.getElementById(target);
         if (panel) panel.classList.add("active");
         var sidebar = document.querySelector(".sidebar");
-        sidebar.classList.remove("collapsed");
+        if (sidebar) sidebar.classList.remove("open");
         var backdrop = document.getElementById("sidebarBackdrop");
         if (backdrop) backdrop.remove();
       });

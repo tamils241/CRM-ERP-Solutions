@@ -93,6 +93,10 @@ button, input, select, textarea { font: inherit; }
   margin: 0 auto;
 }
 
+.back-home {
+  display: none !important;
+}
+
 .gradient-text {
   color: transparent;
   background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
