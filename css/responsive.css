@@ -73,6 +73,12 @@
     flex: 0 0 auto;
     place-items: center;
     position: relative;
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+    padding: 0;
+    overflow: hidden;
+    line-height: 1;
     cursor: pointer;
   }
   .mobile-toggle i {
@@ -81,10 +87,12 @@
   .mobile-toggle::before {
     content: "";
     width: 5px;
-    height: 5px;
-    border-radius: 50%;
-    background: currentColor;
-    box-shadow: 0 -8px 0 currentColor, 0 8px 0 currentColor;
+    height: 23px;
+    background:
+      radial-gradient(circle at center 3px, currentColor 2.5px, transparent 3px),
+      radial-gradient(circle at center 11.5px, currentColor 2.5px, transparent 3px),
+      radial-gradient(circle at center 20px, currentColor 2.5px, transparent 3px);
+    background-repeat: no-repeat;
   }
 
   /* Page Layouts */
@@ -208,9 +216,15 @@
   }
   .footer-grid > div {
     display: grid;
+    grid-column: 1 / -1;
     justify-items: center;
     padding: 0;
   }
+  .footer-grid > div:nth-child(1) { order: 1; }
+  .footer-grid > div:nth-child(2) { order: 2; }
+  .footer-grid > div:nth-child(3) { order: 3; }
+  .footer-grid > div:nth-child(4) { order: 4; }
+  .footer-grid > div:nth-child(5) { order: 5; }
   .footer-grid > div + div::before { display: none; }
   .footer-brand p {
     max-width: 320px;
@@ -339,6 +353,13 @@
     flex-direction: column;
     align-items: stretch;
   }
+  .hero-actions {
+    align-items: center;
+  }
+  .hero-actions .btn {
+    width: min(100%, 220px);
+    flex: 0 0 auto;
+  }
 
   .dashboard-visual {
     display: grid;
@@ -402,7 +423,11 @@
   .mobile-nav-actions .btn {
     width: 100%;
   }
-  .mobile-toggle { width: 38px; height: 38px; }
+  .mobile-toggle {
+    width: 38px;
+    height: 38px;
+    min-width: 38px;
+  }
 
   /* Typography & Buttons */
   h1 { font-size: clamp(1.9rem, 10vw, 2.75rem); }
@@ -442,6 +467,10 @@
   .hero-actions .btn,
   .auth-panel .btn {
     max-width: 100%;
+  }
+  .hero-actions .btn {
+    width: min(100%, 210px);
+    max-width: 210px;
   }
   .auth-panel .form-grid label,
   .form-card > label {
